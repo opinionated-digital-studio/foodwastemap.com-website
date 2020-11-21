@@ -1,0 +1,13 @@
+$green                 : #699218;
+$light-green           : #f1fadf;
+$primary               : $green;
+$link                  : $green;
+
+$body-font-size             : 1.2em;
+$subtitle-size              : 1.3em;
+
+$gap                        : 100px;
+
+$family-sans-serif     : navigo, BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+@import '~bulma/';
