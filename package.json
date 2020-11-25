@@ -5,15 +5,17 @@
   "author": "",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "cross-env NUXT_HOST=0.0.0.0 NUXT_PORT=3333 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "test": "jest"
+    "test": "jest --watchAll"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/dotenv": "^1.4.1",
     "bulma": "^0.9.1",
-    "cross-env": "^5.2.0",
+    "date-fns": "^2.16.1",
     "node-sass": "^5.0.0",
     "nuxt": "^2.4.0",
     "sass-loader": "^10.1.0"
@@ -25,6 +27,8 @@
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^24.1.0",
+    "cross-env": "^5.2.1",
+    "faker": "^5.1.0",
     "jest": "^24.1.0",
     "nodemon": "^1.18.9",
     "typescript": "^4.1.2",
