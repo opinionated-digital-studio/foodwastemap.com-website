@@ -34,6 +34,10 @@
               Platform
             </a>
 
+            <a href="/pricing" class="navbar-item">
+              Pricing
+            </a>
+
             <a href="/about" class="navbar-item">
               About
             </a>
