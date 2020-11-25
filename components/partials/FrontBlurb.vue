@@ -2,21 +2,20 @@
   <div>
     <section class="section">
       <div class="container">
-        <h2 class="title is-2 has-text-centered">
-          Lorem ipsum dolor sit amet
-        </h2>
+        <h2 class="title is-2 has-text-centered">Lorem ipsum dolor sit amet</h2>
 
         <div class="columns">
           <div class="column is-half">
-            <small class="caption is-primary">Connections</small>
-            <h2 class="subtitle">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </h2>
+            <small class="caption is-primary">Connecties</small>
+            <h2 class="subtitle">Mogelijkheden &amp; effecten</h2>
             <p class="mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic nisi
-              quo deserunt eius ratione, exercitationem repellat expedita
-              voluptatem itaque cum, ab alias nulla ipsa ad, cupiditate dolorem
-              voluptatibus aperiam aliquam.
+              In de gehele lijn van de voedselcyclus kan voedselverspilling
+              worden tegengaan. Hierbij hoort ook opschaling, bijvoorbeeld een
+              grotere oogst, d.m.v. zaadveredeling. Of het opvangen en recyclen
+              van restafval in een productielijn. Slimme data-analyses die
+              voedselverspilling onderweg opvangt. Tot aan oplossingen binnen de
+              retail en eye-openers voor consumenten waardoor voedselverspilling
+              ook aan het eind van de lijn wordt bestreden.
             </p>
             <a href="/connections">Read more</a>
           </div>
@@ -29,16 +28,16 @@
         <div class="columns">
           <div class="column"></div>
           <div class="column is-half">
-            <small class="caption is-primary">Platform</small>
-            <h2 class="subtitle">
-              Lorem ipsum <strong>dolor</strong> sit amet, doloremque ipsam
-              minus ratione quam cupiditate in.
-            </h2>
+            <small class="caption is-primary">Het platform</small>
+            <h2 class="subtitle">Waar onze mogelijkheden liggen</h2>
             <p class="mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic nisi
-              quo deserunt eius ratione, exercitationem repellat expedita
-              voluptatem itaque cum, ab alias nulla ipsa ad, cupiditate dolorem
-              voluptatibus aperiam aliquam.
+              In de gehele sector van productie naar distributie tot aan de
+              consument. Alle oplossingen, innovaties en initiatieven op de
+              gehele lijn van de voedselcyclus, zijn niet alleen noodzakelijk,
+              maar leveren ook voordeel op! Voor bedrijven, consumenten en
+              uiteindelijk het klimaat! Elke implementatie van een nieuwe
+              innovatieve oplossing tegen voedselverspilling-en verlies heeft
+              zijn weerslag op de vervolgcyclus in de voedselketen.
             </p>
             <a href="/platform">Read more</a>
           </div>
@@ -50,15 +49,20 @@
       <div class="container">
         <div class="columns">
           <div class="column is-half">
-            <small class="caption is-primary">Innovation Media</small>
-            <h2 class="subtitle">
-              Lorem ipsum dolor sit amet
-            </h2>
+            <small class="caption is-primary"
+              >Waarom de Food Waste Solution Map</small
+            >
+            <h2 class="subtitle">Een divers landschap</h2>
             <p class="mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic nisi
-              quo deserunt eius ratione, exercitationem repellat expedita
-              voluptatem itaque cum, ab alias nulla ipsa ad, cupiditate dolorem
-              voluptatibus aperiam aliquam.
+              Het landschap van Innovaties, Ideeën en Initiatieven binnen het
+              Food Waste &amp; Food loss thema is indrukwekkend! Om alle beweging
+              binnen de voedselsyclus op dit thema te bundelen hebben wij de
+              Food Waste Solution Map (FWSM) ontwikkeld. De Food Waste Solution
+              Map komt voort uit het idee om de oplossingen tegen
+              voedselverspilling-en verlies, in kaart te brengen en te bundelen
+              naar sectorgroep. Binnen ons netwerk zien wij dat er veel
+              initiatieven al lange tijd gaande zijn en er in rap tempo veel
+              nieuwe start-up innovaties en mogelijkheden bij komen.
             </p>
             <a href="/about">Read more</a>
           </div>
@@ -85,6 +89,6 @@
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-  name: "FrontBlurb"
+  name: "FrontBlurb",
 });
 </script>

@@ -13,11 +13,41 @@
         <h1 class="title is-1">Connections</h1>
         <div class="columns">
           <div class="column is-two-thirds">
-            <p class="subtitle pb-5 mb-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-              dicta id consequatur expedita aperiam consectetur provident in
-              sapiente, quidem quas sit. Alias laborum error quasi dolor autem
-              ex repudiandae soluta?
+            <p class="subtitle pb-5 mb-2">
+              Bedrijven nemen veelal het voortouw om voedselverspilling en-
+              verlies tegen te gaan. Dit uit ideëel doel, een duurzame
+              bedrijfsvoering na te streven, maar ook uit oogpunt van het
+              verwaarden van afval! Want voedselverspilling tegengaan kan winst
+              opleveren!
+            </p>
+            <p class="mb-5">
+              Campagnes, opgezet om voedselverspilling en-verlies te voorkomen
+              worden nu veelal gericht op de consument. Bij de consumptie binnen
+              de voedselketen is dan ook nog altijd veel winst te behalen! Maar
+              het is onterecht om alle andere sectoren binnen de voedselsyclus
+              buiten beeld te laten. In Elke sector is winst te behalen! De
+              voedselketen kan wordt verdeeld in verschillende sectoren. En elke
+              sector heeft zijn eigen activiteiten om voedselverspilling
+              en-verlies tegen te gaan.
+            </p>
+            <p class="mb-5">
+              Het landschap van Innovaties, Ideeën en Initiatieven binnen het
+              ‘food waste &amp; food loss’ thema is indrukwekkend! Om alle
+              beweging binnen de voedselketen op dit thema te bundelen is de
+              Food Waste Solution Map (FWSM) ontwikkeld. Om inzicht te krijgen
+              in de drijfveren van verschillende ondernemingen en initiatieven
+              binnen het ‘food waste &amp; loss’ probleem!
+            </p>
+
+            <p class="mb-5">
+              De FWSM verdeelt de voedselketen in 5 verschillende sectoren. De
+              sectoren kunnen we onderverdelen in verschillende segmenten. Elk
+              segment is een onderdeel van de FWSM ! In elk segment is
+              activiteit op het gebied van ‘food-waste en ‘food-loss’. In elk
+              segment worden innovaties gedaan. In elk segment worden
+              oplossingen aangereikt. In elk segment worden mogelijkheden
+              geïmplementeerd Om voedselverspilling of verlies te voorkomen
+              en/of te verwaarden!
             </p>
             <hr />
           </div>
@@ -32,7 +62,7 @@
               <i class="fas fa-flag fa-2x"></i>
             </div>
             <div class="fwsm-sectors__text">
-              <h2 class="title is-4">Sector 1</h2>
+              <h2 class="title is-4">Productie/oogst</h2>
               <p class="subtitle is-5">A short description</p>
             </div>
           </a>
@@ -41,7 +71,7 @@
               <i class="fas fa-flag fa-2x"></i>
             </div>
             <div class="fwsm-sectors__text">
-              <h2 class="title is-4">Sector 2</h2>
+              <h2 class="title is-4">Verwerking/productie</h2>
               <p class="subtitle is-5">A short description</p>
             </div>
           </a>
@@ -50,7 +80,7 @@
               <i class="fas fa-flag fa-2x"></i>
             </div>
             <div class="fwsm-sectors__text">
-              <h2 class="title is-4">Sector 3</h2>
+              <h2 class="title is-4">Verpakking, opslag &amp; rijping</h2>
               <p class="subtitle is-5">A short description</p>
             </div>
           </a>
@@ -59,7 +89,7 @@
               <i class="fas fa-flag fa-2x"></i>
             </div>
             <div class="fwsm-sectors__text">
-              <h2 class="title is-4">Sector 4</h2>
+              <h2 class="title is-4">Distributie &amp; transport</h2>
               <p class="subtitle is-5">A short description</p>
             </div>
           </a>
@@ -68,7 +98,7 @@
               <i class="fas fa-flag fa-2x"></i>
             </div>
             <div class="fwsm-sectors__text">
-              <h2 class="title is-4">Sector 5</h2>
+              <h2 class="title is-4">Retail &amp; consument</h2>
               <p class="subtitle is-5">A short description</p>
             </div>
           </a>
@@ -111,7 +141,7 @@ import FWSMCallToAction from "~/components/FWSMCallToAction.vue";
 import Vue from "vue";
 export default Vue.extend({
   components: {
-    FWSMCallToAction
-  }
+    FWSMCallToAction,
+  },
 });
 </script>

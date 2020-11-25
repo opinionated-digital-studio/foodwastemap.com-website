@@ -3,13 +3,10 @@
     <section class="hero is-medium is-primary is-bold">
       <div class="hero-body has-text-centered">
         <div class="container">
-          <h1 class="title">
-            Food Waste Solution Map
-          </h1>
+          <h1 class="title">Food Waste Solution Map</h1>
           <h2 class="subtitle">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Exercitationem est velit tempora accusamus, ab ullam quae! Neque,
-            corporis delectus!
+            Lets make food waste &amp; food loss history. Mapping opportunities
+            in the Food Chain Business
           </h2>
           <a class="button is-white" href="">Sign up for free</a>
         </div>
@@ -129,6 +126,6 @@
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-  name: "FWSMHero"
+  name: "FWSMHero",
 });
 </script>
