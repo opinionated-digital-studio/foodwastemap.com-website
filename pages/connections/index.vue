@@ -59,7 +59,7 @@
             class="fwsm-sectors__link block"
           >
             <div class="fwsm-sectors__icon">
-              <i class="fas fa-flag fa-2x"></i>
+              <i class="fas fa-circle fa-2x production"></i>
             </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Productie/oogst</h2>
@@ -68,7 +68,7 @@
           </a>
           <a href="" class="fwsm-sectors__link block">
             <div class="fwsm-sectors__icon">
-              <i class="fas fa-flag fa-2x"></i>
+              <i class="fas fa-circle fa-2x processing"></i>
             </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Verwerking/productie</h2>
@@ -77,7 +77,7 @@
           </a>
           <a href="" class="fwsm-sectors__link block">
             <div class="fwsm-sectors__icon">
-              <i class="fas fa-flag fa-2x"></i>
+              <i class="fas fa-circle fa-2x packaging"></i>
             </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Verpakking, opslag &amp; rijping</h2>
@@ -86,7 +86,7 @@
           </a>
           <a href="" class="fwsm-sectors__link block">
             <div class="fwsm-sectors__icon">
-              <i class="fas fa-flag fa-2x"></i>
+              <i class="fas fa-circle fa-2x distribution"></i>
             </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Distributie &amp; transport</h2>
@@ -95,7 +95,7 @@
           </a>
           <a href="" class="fwsm-sectors__link block">
             <div class="fwsm-sectors__icon">
-              <i class="fas fa-flag fa-2x"></i>
+              <i class="fas fa-circle fa-2x retail"></i>
             </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Retail &amp; consument</h2>
@@ -110,6 +110,26 @@
 </template>
 
 <style lang="scss" scoped>
+.production {
+  color: $production;
+}
+
+.processing { 
+  color: $processing;
+}
+
+.packaging {
+  color: $packaging;
+}
+
+.distribution {
+  color: $distribution;
+}
+
+.retail {
+  color: $retail;
+}
+
 .fwsm-sectors {
   @include desktop() {
     display: flex;
