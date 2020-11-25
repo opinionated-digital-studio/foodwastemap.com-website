@@ -44,7 +44,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/style-resources'
+    '@nuxtjs/dotenv', '@nuxtjs/style-resources', '@nuxtjs/axios'
   ],
 
   styleResources: {
