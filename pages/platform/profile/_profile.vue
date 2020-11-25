@@ -57,17 +57,19 @@
 <script lang="ts">
 import Vue from "vue";
 import { format } from "date-fns";
+import Org from "@/types/org";
 
 export default Vue.extend({
   async asyncData(context) {
-    const profile = await context.$axios.$get(
+    const profile: Org = await context.$axios.$get(
       `${process.env.FWSM_API_URL}/orgs/${context.params.profile}`
     );
     return { profile };
   },
   computed: {
-    formatModfiedOn(): string {
-      const timestamp = this.profile.modifiedOn;
+    formatModfiedOn: function(): string {
+      const profile: Org = (this as any).profile;
+      const timestamp = profile.modifiedOn;
       const date = new Date(timestamp);
       const formattedDate = format(date, "dd LLL yyyy");
       return formattedDate;

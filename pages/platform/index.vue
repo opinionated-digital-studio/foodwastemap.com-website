@@ -16,21 +16,36 @@
             <div class="column is-one-third">
               <h1 class="title is-2 mb-1">Find companies</h1>
               <span class="fwsm-search-app__label--found"
-                >{{ numberOfOrgsFound }} organizations</span
+                >{{ numberOfOrgsFound }} organization(s)</span
               >
               found
             </div>
             <div class="column">
-              <FWSMMainSearch :fwsmSectors="fwsmSectors" />
+              <FWSMMainSearch
+                :fwsmSectors="availableSectors"
+                @doSearch="initiateSearch"
+              />
             </div>
           </div>
 
           <div class="columns">
             <div class="column is-one-third">
-              <FWSMFilter :fwsmSubsectors="availableSubsectors" />
+              <FWSMFilter v-if="availableSubsectors" :fwsmSubsectors="availableSubsectors" />
             </div>
             <div class="column">
-              <FWSMResults :found="foundOrgs" :fwsmSectors="fwsmSectors" />
+              <FWSMResults
+                v-if="!isLoading"
+                :found="availableOrgs || initOrgs"
+                :fwsmSectors="availableSectors"
+              />
+            <div class="has-text-centered" v-if="isLoading">
+              <i class="fas fa-spinner"></i>
+              <p>Loading...</p>
+            </div>
+            <div class="has-text-centered" v-if="numberOfOrgsFound === 0 && !isLoading">
+              <i class="fas fa-times"></i>
+              <p>No companies found with your chosen search query</p>
+            </div>
             </div>
           </div>
         </div>
@@ -49,64 +64,89 @@
 }
 </style>
 
-<script lang="ts">
+<script>
 import FWSMFilter from "~/components/search-app/FWSMFilter.vue";
 import FWSMMainSearch from "~/components/search-app/FWSMMainSearch.vue";
 import FWSMResults from "~/components/search-app/FWSMResults.vue";
 import querystring from "querystring";
-import Vue from "vue";
 
-import FwsmSector from "@/types/fwsm-sector";
-import Org from "@/types/org";
-
-type FwsmSectors = Array<FwsmSector>;
-type Orgs = Array<Org>;
-
-export default Vue.extend({
+export default {
   components: { FWSMMainSearch, FWSMFilter, FWSMResults },
+
   async asyncData(context) {
-    const query = querystring.stringify(context.query);
-    const fwsmSectors: FwsmSectors = await context.$axios.$get(
+    const query = context.query;
+    const initOrgs = await context.$axios.$get(
+      `${process.env.FWSM_API_URL}/orgs`,
+      { params: query }
+    );
+    const allSectors = await context.$axios.$get(
       `${process.env.FWSM_API_URL}/fwsm-sectors`
     );
-    const fwsmSubsectors = fwsmSectors.map((fwsmSector) => {
-      return fwsmSector.fwsmSubsectors;
-    });
-    const joinedFwsmSubsectors = fwsmSubsectors.flat();
-    const foundOrgs: Orgs = await context.$axios.$get(
-      `${process.env.FWSM_API_URL}/orgs?${query}`
-    );
-
-    let availableSubsectors = [];
-    if (foundOrgs.length > 0) {
-      const findAvailableSubsectors = foundOrgs.map(function (foundOrg) {
-        {
-          return fwsmSectors.map(function (fwsmSector) {
-            return fwsmSector.fwsmSubsectors.find(function (fwsmSubsector) {
-              return fwsmSubsector.id === foundOrg.subsectorId;
-            });
-          });
-        }
-      });
-      availableSubsectors = findAvailableSubsectors.flat().filter(function (
-        element
-      ) {
-        return element !== undefined;
-      });
-      console.log(availableSubsectors)
-    }
 
     return {
-      foundOrgs,
-      fwsmSectors,
-      joinedFwsmSubsectors,
-      availableSubsectors,
+      initOrgs,
+      allSectors,
+    };
+  },
+  data() {
+    return {
+      availableOrgs: null,
+      isLoading: false,
     };
   },
   computed: {
-    numberOfOrgsFound(): number {
-      return this.foundOrgs.length;
+    availableSectors: function () {
+      const availableOrgs = this.initOrgs;
+      const allSectors = this.allSectors;
+      const availableSectors = availableOrgs.map(function (org) {
+        return org.sectorId;
+      });
+      const allAvailableSectors = availableSectors.flat();
+      return allSectors.filter(function (sector) {
+        return allAvailableSectors.some(function (availableSector) {
+          return sector.id === availableSector;
+        });
+      });
+    },
+    availableSubsectors: function () {
+      if (this.availableSectors) {
+        const availableSectors = this.availableSectors
+        const filterSubsectors = availableSectors.map(function(availableSector) {
+          return availableSector.fwsmSubsectors
+        })
+        const availableOrgs = this.availableOrgs || this.initOrgs
+        const availableSubsectors = availableOrgs.map(function(availableOrg) {
+          return filterSubsectors.flat().find(function(subsector) {
+            return (subsector.id === availableOrg.subsectorId)
+          })
+        })
+        return availableSubsectors
+      } else {
+        return null
+      }
+    },
+    numberOfOrgsFound: function () {
+      if (this.availableOrgs) {
+        return this.availableOrgs.length;
+      } else {
+        return this.initOrgs.length;
+      }
     },
   },
-});
+  methods: {
+    initiateSearch: async function (val) {
+      const query = {
+        orgName: val.searchQuery,
+        country: val.selectedCountry,
+        sectorId: val.selectedSector,
+      };
+      this.isLoading = true;
+      const foundSectors = await this.$axios.$get("/api" + "/orgs", {
+        params: query,
+      });
+      this.availableOrgs = foundSectors;
+      this.isLoading = false;
+    },
+  },
+};
 </script>

@@ -6,4 +6,6 @@ export default interface Org {
   subsectorId: string;
   address: Address;
   modifiedOn: number;
+  website: string;
+  bio?: string;
 }

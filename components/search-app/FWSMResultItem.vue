@@ -3,17 +3,20 @@
     <div class="fwsm-search-app-results__base-info">
       <dt class="fwsm-search-app-results__key">{{ org.orgName }}</dt>
       <dd class="fwsm-search-app-results__value">
-        {{ formatSubsector.sectorName }}: {{ formatSubsector.subsectorName }}
+        {{ formatSector.sectorName }}: {{ formatSector.subsectorName }}
       </dd>
       <dd
         class="fwsm-search-app-results__value fwsm-search-app-results__country"
       >
-        <small> <i class="fas fa-globe"></i> &nbsp; {{ formatCountry }} </small>
+        <small>
+          <i class="fas fa-globe"></i> &nbsp; {{ org.address.city }},
+          {{ org.address.country }}
+        </small>
       </dd>
     </div>
     <div class="fwsm-search-app-results__action">
       <a
-        :href="'/platform/profile/' + org.id "
+        :href="'/platform/profile/' + org.id"
         class="button is-primary is-light is-medium mb-2"
         >More info</a
       >
@@ -58,67 +61,45 @@
 }
 </style>
 
-<script lang="ts">
-import Vue, { PropOptions } from "vue";
+<script>
 import { format } from "date-fns";
 
-import { Org } from "~/types";
-import FwsmSector from "@/types/fwsm-sector";
-
-type FwsmSectors = Array<FwsmSector>;
-
-export default Vue.extend({
+export default {
   name: "FWSMResultItem",
   props: {
     org: {
       type: Object,
       required: true,
-    } as PropOptions<Org>,
+    },
     fwsmSectors: {
       type: Array,
       required: true,
-    } as PropOptions<FwsmSectors>,
-  },
-
-  computed: {
-    formatCountry(): string {
-      const capitalStr = this.org.address.country.replace(/\b\w/g, function (
-        c
-      ) {
-        return c.toUpperCase();
-      });
-      return capitalStr;
     },
-    formatModfiedOn(): string {
+  },
+  computed: {
+    formatModfiedOn: function () {
       const timestamp = this.org.modifiedOn;
       const date = new Date(timestamp);
       const formattedDate = format(date, "dd LLL yyyy");
       return formattedDate;
     },
-    formatSubsector(): object {
+    formatSector: function () {
       const sectorId = this.org.sectorId;
       const subsectorId = this.org.subsectorId;
       const fwsmSectors = this.fwsmSectors;
-      const foundSector = fwsmSectors.find(function (fwsmSector: FwsmSector) {
+      const foundSector = fwsmSectors.find(function (fwsmSector) {
         return fwsmSector.id === sectorId;
       });
-      if (
-        foundSector !== undefined &&
-        foundSector.fwsmSubsectors !== undefined
+      const foundSubsector = foundSector.fwsmSubsectors.find(function (
+        fwsmSubsector
       ) {
-        const foundSubsector = foundSector.fwsmSubsectors.find(function (
-          fwsmSubsector
-        ) {
-          return fwsmSubsector.id === subsectorId;
-        });
-        return {
-          sectorName: foundSector.name,
-          subsectorName: foundSubsector.name,
-        };
-      } else {
-        return {}
-      }
+        return fwsmSubsector.id === subsectorId;
+      });
+      return {
+        sectorName: foundSector.name,
+        subsectorName: foundSubsector.name,
+      };
     },
   },
-});
+};
 </script>

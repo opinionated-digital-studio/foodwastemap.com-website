@@ -1,10 +1,14 @@
 <template>
   <div class="block">
-    <form method="get">
+    <form novalidate @submit.prevent="performSearch">
       <div class="field has-addons">
         <div class="control has-icons-left">
           <div class="select">
-            <select name="sectorId" id="select-fwsm-sector">
+            <select
+              name="sectorId"
+              id="select-fwsm-sector"
+              v-model="selectedSector"
+            >
               <option value="">All sectors</option>
               <option
                 v-for="fwsmSector in fwsmSectors"
@@ -20,7 +24,11 @@
         </div>
         <div class="control has-icons-left">
           <div class="select">
-            <select name="country" id="select-country">
+            <select
+              name="country"
+              id="select-country"
+              v-model="selectedCountry"
+            >
               <option value="">All countries</option>
             </select>
           </div>
@@ -48,13 +56,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
+<script>
+export default {
   name: "FWSMMainSearch",
   data() {
     return {
       searchQuery: "",
+      selectedCountry: "",
+      selectedSector: "",
     };
   },
   props: {
@@ -63,5 +72,14 @@ export default Vue.extend({
       required: true,
     },
   },
-});
+  methods: {
+    performSearch() {
+      this.$emit("doSearch", {
+        searchQuery: this.searchQuery,
+        selectedCountry: this.selectedCountry,
+        selectedSector: this.selectedSector,
+      });
+    },
+  },
+};
 </script>

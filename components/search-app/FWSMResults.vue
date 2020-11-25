@@ -1,6 +1,6 @@
 <template>
   <dl class="fwsm-search-app-results">
-    <FWSMResultItem v-for="(org, index) in found" :key="index" :org="org" :fwsmSectors="fwsmSectors" />
+    <FWSMResultItem v-for="(org, index) in found" :key="index" :org="org" :fwsmSectors="fwsmSectors"/>
   </dl>
 </template>
 
@@ -12,24 +12,14 @@
 }
 </style>
 
-<script lang="ts">
-import Vue, { PropOptions } from "vue";
+<script>
 import FWSMResultItem from "@/components/search-app/FWSMResultItem.vue";
-import { Org } from "@/types";
-import FwsmSector from "@/types/fwsm-sector";
-
-type FwsmSectors = Array<FwsmSector>
-
-type Orgs = Array<Org>;
-
-export default Vue.extend({
+export default {
   name: "FWSMResults",
   components: { FWSMResultItem },
   props: {
-    found: { type: Array, required: false, default: () => [] } as PropOptions<
-      Orgs
-    >,
-    fwsmSectors: {type: Array, required: true} as PropOptions<FwsmSectors>
+    found: { type: Array, required: true },
+    fwsmSectors: { type: Array, required: true },
   },
-});
+};
 </script>
