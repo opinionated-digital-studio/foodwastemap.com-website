@@ -13,8 +13,8 @@
   flex-direction: column;
 }
 
-.footer {
-  flex-grow: 1;
+.fwsm-footer {
+  margin-top: auto;
 }
 </style>
 

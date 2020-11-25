@@ -172,7 +172,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import FwsmCallToAction from '~/components/FWSMCallToAction'
+import FwsmCallToAction from '~/components/FWSMCallToAction.vue'
 export default Vue.extend({
   components: {
     FwsmCallToAction
