@@ -13,7 +13,7 @@
     </div>
     <div class="fwsm-search-app-results__action">
       <a
-        href="/platform/profile/example-profile"
+        :href="'/platform/profile/' + org.id "
         class="button is-primary is-light is-medium mb-2"
         >More info</a
       >
