@@ -1,12 +1,14 @@
 <template>
   <div class="fwsm-search-app-results__item box">
     <div class="fwsm-search-app-results__base-info">
-      <dt class="fwsm-search-app-results__key">Example company</dt>
-      <dd class="fwsm-search-app-results__value">Example product</dd>
+      <dt class="fwsm-search-app-results__key">{{ org.orgName }}</dt>
+      <dd class="fwsm-search-app-results__value">
+        {{ formatSubsector.sectorName }}: {{ formatSubsector.subsectorName }}
+      </dd>
       <dd
         class="fwsm-search-app-results__value fwsm-search-app-results__country"
       >
-        <small> <i class="fas fa-globe"></i> &nbsp; The Netherlands </small>
+        <small> <i class="fas fa-globe"></i> &nbsp; {{ formatCountry }} </small>
       </dd>
     </div>
     <div class="fwsm-search-app-results__action">
@@ -16,7 +18,9 @@
         >More info</a
       >
       <dd class="fwsm-search-app-results__meta">
-        <small> <i class="fas fa-calendar"></i> &nbsp; 10 December 2020</small>
+        <small>
+          <i class="fas fa-calendar"></i> &nbsp; {{ formatModfiedOn }}</small
+        >
       </dd>
     </div>
   </div>
@@ -55,8 +59,66 @@
 </style>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue, { PropOptions } from "vue";
+import { format } from "date-fns";
+
+import { Org } from "~/types";
+import FwsmSector from "@/types/fwsm-sector";
+
+type FwsmSectors = Array<FwsmSector>;
+
 export default Vue.extend({
-  name: "FWSMResults"
+  name: "FWSMResultItem",
+  props: {
+    org: {
+      type: Object,
+      required: true,
+    } as PropOptions<Org>,
+    fwsmSectors: {
+      type: Array,
+      required: true,
+    } as PropOptions<FwsmSectors>,
+  },
+
+  computed: {
+    formatCountry(): string {
+      const capitalStr = this.org.address.country.replace(/\b\w/g, function (
+        c
+      ) {
+        return c.toUpperCase();
+      });
+      return capitalStr;
+    },
+    formatModfiedOn(): string {
+      const timestamp = this.org.modifiedOn;
+      const date = new Date(timestamp);
+      const formattedDate = format(date, "dd LLL yyyy");
+      return formattedDate;
+    },
+    formatSubsector(): object {
+      const sectorId = this.org.sectorId;
+      const subsectorId = this.org.subsectorId;
+      const fwsmSectors = this.fwsmSectors;
+      const foundSector = fwsmSectors.find(function (fwsmSector: FwsmSector) {
+        return fwsmSector.id === sectorId;
+      });
+      if (
+        foundSector !== undefined &&
+        foundSector.fwsmSubsectors !== undefined
+      ) {
+        const foundSubsector = foundSector.fwsmSubsectors.find(function (
+          fwsmSubsector
+        ) {
+          return fwsmSubsector.id === subsectorId;
+        });
+        return {
+          sectorName: foundSector.name,
+          subsectorName: foundSubsector.name,
+        };
+      } else {
+        return {}
+      }
+    },
+  },
 });
 </script>

@@ -5,19 +5,20 @@
         <div class="container">
           <h1 class="title">Food Waste Solution Map</h1>
           <h2 class="subtitle">
-            Lets make food waste &amp; food loss history. Mapping opportunities
-            in the Food Chain Business
+            A networking platform on food waste &amp; food loss innovations
           </h2>
           <a class="button is-white" href="">Sign up for free</a>
         </div>
       </div>
+      <form method="GET" action="/platform">
       <div class="hero-search">
         <div class="field has-addons">
           <div class="control is-expanded has-icons-left">
             <input
               class="hero-search__input input is-full-width is-medium"
               type="text"
-              placeholder="Search company by name or sector"
+              name="orgName"
+              placeholder="Search company by name"
             />
             <span class="icon is-medium is-left">
               <i class="fas fa-search"></i>
@@ -42,6 +43,7 @@
           >
         </div>
       </div>
+      </form>
     </section>
   </div>
 </template>

@@ -2,7 +2,7 @@
   <div>
     <section class="section">
       <div class="container">
-        <h2 class="title is-2 has-text-centered">Lorem ipsum dolor sit amet</h2>
+        <h2 class="title is-4 has-text-centered">Lets make food waste &amp; food loss history by mapping opportunities in the Food Chain Business.</h2>
 
         <div class="columns">
           <div class="column is-half">
