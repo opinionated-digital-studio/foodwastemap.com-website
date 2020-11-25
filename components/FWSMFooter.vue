@@ -75,6 +75,7 @@
 
 <style lang="scss" scoped>
 .fwsm-footer {
+  border-top: 1px solid $grey-lighter;
 
   &__body {
 
