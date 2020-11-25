@@ -15,16 +15,37 @@
         <div class="columns">
           <div class="column is-two-thirds">
             <p class="subtitle pb-5 mb-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-              dolore rerum quibusdam fugiat voluptates nisi dolor! Accusamus hic
-              ab possimus eius nisi voluptatibus fugiat dignissimos
-              exercitationem. Distinctio eligendi quae fugiat!
+              Innovation Media (In-Me) ontwikkelt relaties met internationale
+              bedrijven, die staan voor een groene en duurzame economie.
+              Bedrijven die geïnteresseerd zijn in het vinden van oplossingen en
+              mogelijkheden en om relevante innovatie en Hi-Technology te
+              implementeren. Om zo een groene en duurzame economie te
+              ontwikkelen.
             </p>
-
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam
-              sequi fugiat nihil sed nam quae alias? Odit sed, rem assumenda
-              ipsum velit ab consectetur amet dolores unde, minus sunt illum!
+              In-Me presenteert innovatieve producten van internationale
+              bedrijven via evenementen, netwerkmogelijkheden, presentatie op
+              papier en persoonlijke connecties.
+            </p>
+            <br />
+            <p>
+              In-Me verbindt de Europese markt met onder andere de Euraziatische
+              markt. We streven ernaar om bedrijven en organisaties te matchen,
+              met de gevraagde partners en innovaties.
+            </p>
+            <br />
+            <p>
+              Onze visie: Groene en duurzame innovaties spelen een belangrijke
+              rol bij de ontwikkeling van economische en zakelijke samenwerking
+              tussen Europese en Euraziatische landen.
+            </p>
+            <br />
+            <p>
+              Door artikelen over relevante producten in het kader van de
+              voedselverspilling, die eerder in ons magazine zijn opgenomen,
+              bereikte ons vanuit ons netwerk steeds meer de vraag naar meer
+              inzichtelijkheid van het gehele landschap met oplossingen binnen
+              de voedselverspillings-problematiek.
             </p>
           </div>
         </div>
