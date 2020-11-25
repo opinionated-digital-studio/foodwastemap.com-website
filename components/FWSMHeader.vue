@@ -54,6 +54,15 @@
                 </a>
               </div>
             </div>
+            <div class="navbar-item">
+              <a href="https://twitter.com/in_me20" target="__blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+            <div class="navbar-item">
+              <a href="https://www.instagram.com/inme_magazine/" target="__blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="navbar-item">
+              <a href="https://www.linkedin.com/in/irinatskiti/?originalSubdomain=nl" target="__blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
           </div>
         </div>
       </nav>
