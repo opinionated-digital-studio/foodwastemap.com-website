@@ -14,6 +14,11 @@ $subtitle-size              : 1.3em;
 
 $gap                        : 100px;
 
-$family-sans-serif     : navigo, BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$family-sans-serif     : "Calibri", navigo, BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$family-sans-serif-alt : "Varela", $family-sans-serif;
 
 @import '~bulma/';
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $family-sans-serif-alt;
+}

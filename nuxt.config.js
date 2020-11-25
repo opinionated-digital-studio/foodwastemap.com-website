@@ -14,6 +14,7 @@ export default {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Varela&display=swap' },
       { rel: 'stylesheet', href: 'https://use.typekit.net/otf2qav.css' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
