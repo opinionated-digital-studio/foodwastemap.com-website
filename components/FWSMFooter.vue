@@ -78,7 +78,6 @@
   border-top: 1px solid $grey-lighter;
 
   &__body {
-
     padding: 4rem 0;
   }
 
@@ -102,9 +101,8 @@
 }
 </style>
 
-<script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
-  name: "FWSMFooter",
-});
+<script>
+export default {
+  name: "FWSMFooter"
+};
 </script>

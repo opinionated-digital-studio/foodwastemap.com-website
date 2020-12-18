@@ -18,11 +18,10 @@
 }
 </style>
 
-<script lang="ts">
+<script>
 import FWSMHeader from "~/components/FWSMHeader.vue";
 import FWSMFooter from "~/components/FWSMFooter.vue";
-import Vue from "vue";
-export default Vue.extend({
-  components: { FWSMHeader, FWSMFooter },
-});
+export default {
+  components: { FWSMHeader, FWSMFooter }
+};
 </script>

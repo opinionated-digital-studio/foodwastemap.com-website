@@ -17,32 +17,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue, { PropOptions } from "vue";
-import FwsmSubsector from '@/types/fwsm-subsector'
-
-type FwsmSubsectors = Array<FwsmSubsector>;
-
-export default Vue.extend({
-  name: "FWSMFilter",
-  props: {
-    fwsmSubsectors: { type: Array, required: true } as PropOptions<
-      FwsmSubsectors
-    >,
-  },
-  computed: {
-    sortedSubsectors: function () {
-      const fwsmSubsectors: FwsmSubsectors = this.fwsmSubsectors;
-      const sortedSubsectors = fwsmSubsectors.sort(function (
-        a: FwsmSubsector,
-        b: FwsmSubsector
-      ) {
-        var textA = a.name.toUpperCase();
-        var textB = b.name.toUpperCase();
-        return textA < textB ? -1 : textA > textB ? 1 : 0;
-      });
-      return sortedSubsectors;
-    },
-  },
-});
+<script>
+export default {
+  name: "FWSMFilter"
+};
 </script>

@@ -10,56 +10,78 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 <a href="">Read more</a>
               </p>
-
-              <form action="" method="post">
+              <div v-if="error" class="notification is-danger">{{ error }}</div>
+              <form method="post" @submit.prevent="signUp">
                 <div class="field">
                   <label class="label">
                     First name
-                    <input class="input" type="text" name="fname" />
+                    <input
+                      class="input"
+                      type="text"
+                      name="fname"
+                      v-model="firstName"
+                    />
                   </label>
                 </div>
 
                 <div class="field">
                   <label class="label">
                     Last name
-                    <input class="input" type="text" name="lname" />
+                    <input
+                      class="input"
+                      type="text"
+                      name="lname"
+                      v-model="lastName"
+                    />
                   </label>
                 </div>
 
                 <div class="field">
                   <label class="label">
                     Email address
-                    <input class="input" type="email" name="email" />
+                    <input
+                      class="input"
+                      type="email"
+                      name="email"
+                      v-model="email"
+                    />
                   </label>
                 </div>
 
                 <div class="field">
                   <label class="label">
                     Company name
-                    <input class="input" type="text" name="company-name" />
+                    <input
+                      class="input"
+                      type="text"
+                      name="company-name"
+                      v-model="orgName"
+                    />
                   </label>
                 </div>
 
                 <div class="field">
-                  <label class="label" for="country">Country</label>
-                  <div class="control is-expanded">
-                    <div class="select is-fullwidth">
-                      <select id="country" name="country">
-                        <option value="Argentina">Argentina</option>
-                        <option value="Bolivia">Bolivia</option>
-                        <option value="Brazil">Brazil</option>
-                        <option value="Chile">Chile</option>
-                        <option value="Colombia">Colombia</option>
-                        <option value="Ecuador">Ecuador</option>
-                        <option value="Guyana">Guyana</option>
-                        <option value="Paraguay">Paraguay</option>
-                        <option value="Peru">Peru</option>
-                        <option value="Suriname">Suriname</option>
-                        <option value="Uruguay">Uruguay</option>
-                        <option value="Venezuela">Venezuela</option>
-                      </select>
-                    </div>
-                  </div>
+                  <label class="label">
+                    Password
+                    <input
+                      class="input"
+                      type="password"
+                      name="password"
+                      v-model="password"
+                    />
+                  </label>
+                </div>
+
+                <div class="field">
+                  <label class="label">
+                    Confirm password
+                    <input
+                      class="input"
+                      type="password"
+                      name="password-confirm"
+                      v-model="passwordConfirm"
+                    />
+                  </label>
                 </div>
 
                 <button
@@ -87,7 +109,48 @@
 }
 </style>
 
-<script lang="ts">
-import Vue from "vue";
-export default Vue.extend({});
+<script>
+export default {
+  data() {
+    return {
+      firstName: "",
+      lastName: "",
+      email: "",
+      orgName: "",
+      password: "",
+      passwordConfirm: "",
+      error: null
+    };
+  },
+  methods: {
+    signUp: async function() {
+      if (this.password !== this.passwordConfirm) {
+        this.error = "The passwords you have entered do not match";
+      } else {
+        try {
+          await this.$axios.$post("/api/orgs", {
+            orgName: this.orgName,
+            password: this.password,
+            contactPerson: {
+              firstName: this.firstName,
+              lastName: this.lastName,
+              email: this.email
+            }
+          });
+
+          await this.$auth.loginWith("local", {
+            data: {
+              email: this.email,
+              password: this.password
+            }
+          });
+
+          this.$router.push("/");
+        } catch (e) {
+          this.error = e.response.data.error;
+        }
+      }
+    }
+  }
+};
 </script>

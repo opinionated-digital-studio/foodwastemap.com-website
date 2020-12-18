@@ -1,6 +1,6 @@
 <template>
   <dl class="fwsm-search-app-results">
-    <FWSMResultItem v-for="(org, index) in found" :key="index" :org="org" :fwsmSectors="fwsmSectors"/>
+    <FWSMResultItem v-for="(org, index) in orgs" :key="index" :org="org" />
   </dl>
 </template>
 
@@ -18,8 +18,7 @@ export default {
   name: "FWSMResults",
   components: { FWSMResultItem },
   props: {
-    found: { type: Array, required: true },
-    fwsmSectors: { type: Array, required: true },
-  },
+    orgs: { type: Array, required: true }
+  }
 };
 </script>

@@ -1,4 +1,5 @@
 import pkg from "./package";
+require('dotenv').config()
 
 export default {
   mode: "universal",
@@ -42,7 +43,8 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+  ],
 
   /*
    ** Nuxt.js modules
@@ -51,22 +53,33 @@ export default {
     "@nuxtjs/dotenv",
     "@nuxtjs/style-resources",
     "@nuxtjs/axios",
+    "@nuxtjs/auth-next",
     "@nuxtjs/proxy"
   ],
 
   axios: {
-    proxy: true
+    proxy: true,
+    baseURL: process.env.FWSM_API_URL
   },
 
   proxy: {
     "/api": { target: process.env.FWSM_API_URL, pathRewrite: { "^/api": "" } }
   },
 
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'api/org-user/login', method: 'post', propertyName: 'token' },
+          user: { url: 'api/org-user', method: 'get', propertyName: 'user' },
+          logout: false
+        }
+      }
+    }
+  },
   styleResources: {
     scss: ["~assets/scss/main.scss"]
   },
-
-  buildModules: ["@nuxt/typescript-build"],
 
   /*
    ** Build configuration

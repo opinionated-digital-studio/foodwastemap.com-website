@@ -7,7 +7,7 @@
             <select
               name="sectorId"
               id="select-fwsm-sector"
-              v-model="selectedSector"
+              v-on:input="$emit('fwsm-sector-changed', $event.target.value)"
             >
               <option value="">All sectors</option>
               <option
@@ -22,27 +22,13 @@
             <i class="fas fa-list"></i>
           </span>
         </div>
-        <div class="control has-icons-left">
-          <div class="select">
-            <select
-              name="country"
-              id="select-country"
-              v-model="selectedCountry"
-            >
-              <option value="">All countries</option>
-            </select>
-          </div>
-          <span class="icon is-small is-left">
-            <i class="fas fa-globe"></i>
-          </span>
-        </div>
         <div class="control is-expanded has-icons-left">
           <input
             class="input"
             name="orgName"
             type="text"
             placeholder="Find a company"
-            v-model="searchQuery"
+            v-on:input="$emit('search-query-changed', $event.target.value)"
           />
           <span class="icon is-small is-left">
             <i class="fas fa-search"></i>
@@ -59,27 +45,16 @@
 <script>
 export default {
   name: "FWSMMainSearch",
-  data() {
-    return {
-      searchQuery: "",
-      selectedCountry: "",
-      selectedSector: "",
-    };
-  },
   props: {
     fwsmSectors: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
     performSearch() {
-      this.$emit("doSearch", {
-        searchQuery: this.searchQuery,
-        selectedCountry: this.selectedCountry,
-        selectedSector: this.selectedSector,
-      });
-    },
-  },
+      this.$emit("doSearch");
+    }
+  }
 };
 </script>

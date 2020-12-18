@@ -5,20 +5,39 @@
         <a class="fwsm-search-app__back-link" href="/platform"
           >&#8592; Back to results</a
         >
-        <div class="fwsm-search-app__company-info">
-          <div class="fwsm-search-app__company-image"></div>
-          <div class="fwsm-search-app__company-details">
-            <h1 class="title is-2">{{ profile.orgName }}</h1>
-            <div class="fwsm-search-app__company-location">
-              <i class="fas fa-map-marker-alt"></i> &nbsp;
-              {{ profile.address.city }}, {{ profile.address.country }}
+        <div class="columns">
+          <div class="column is-two-thirds">
+            <div class="fwsm-search-app__company-info">
+              <div class="fwsm-search-app__company-image"></div>
+              <div class="fwsm-search-app__company-details">
+                <h1 class="title is-2 mb-2">{{ profile.orgName }}</h1>
+                <div class="fwsm-search-app__company-location">
+                  <i class="fas fa-map-marker-alt"></i> &nbsp;
+                  {{ formatLocation }}
+                </div>
+                <div
+                  class="fwsm-search-app__company-website"
+                  v-if="profile.website"
+                >
+                  <a :href="profile.website" target="__blank">
+                    {{ profile.website }}
+                  </a>
+                </div>
+                <div class="fwsm-search-app__company-registered">
+                  Last updated on {{ modifiedOn }}
+                </div>
+              </div>
             </div>
-            <div class="fwsm-search-app__company-website">
-              <a :href="profile.website">{{ profile.website }}</a>
-            </div>
-            <div class="fwsm-search-app__company-registered">
-              Last updated on {{ formatModfiedOn }}
-            </div>
+          </div>
+          <div v-if="authorizedToEdit" class="column">
+            <a
+              :href="'/platform/profile/edit/' + loggedInUser.id"
+              class="button"
+              >Edit profile</a
+            >
+            <a :href="'/account/settings/' + loggedInUser.id" class="button"
+              >Account settings</a
+            >
           </div>
         </div>
         <div class="columns">
@@ -54,26 +73,47 @@
 }
 </style>
 
-<script lang="ts">
-import Vue from "vue";
+<script>
+import { mapGetters } from "vuex";
 import { format } from "date-fns";
-import Org from "@/types/org";
 
-export default Vue.extend({
+function capitalize(string) {
+  return string.replace(/\b\w/g, c => c.toUpperCase());
+}
+
+export default {
   async asyncData(context) {
-    const profile: Org = await context.$axios.$get(
-      `${process.env.FWSM_API_URL}/orgs/${context.params.profile}`
-    );
-    return { profile };
+    const profile = await context.$axios
+      .get(`orgs/${context.params.profile}`)
+      .then(res => res.data);
+
+    return {
+      profile
+    };
   },
   computed: {
-    formatModfiedOn: function(): string {
-      const profile: Org = (this as any).profile;
-      const timestamp = profile.modifiedOn;
-      const date = new Date(timestamp);
-      const formattedDate = format(date, "dd LLL yyyy");
-      return formattedDate;
+    ...mapGetters(["isAuthenticated", "loggedInUser"]),
+
+    formatLocation: function() {
+      if (this.profile.address) {
+        const city = this.profile.address.city || "";
+        const country = this.profile.address.country || "";
+        const result = capitalize(city) + ", " + capitalize(country);
+        return result;
+      }
     },
-  },
-});
+    modifiedOn: function() {
+      if (this.profile.modifiedOn) {
+        const modifiedOn = new Date(this.profile.modifiedOn);
+        const formatDate = format(modifiedOn, "dd MMMM, yyyy");
+        return formatDate;
+      }
+    },
+    authorizedToEdit: function() {
+      if (this.loggedInUser && this.profile) {
+        return this.loggedInUser.id === this.profile.id;
+      }
+    }
+  }
+};
 </script>

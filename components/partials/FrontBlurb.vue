@@ -2,7 +2,10 @@
   <div>
     <section class="section">
       <div class="container">
-        <h2 class="title is-4 has-text-centered">Lets make food waste &amp; food loss history by mapping opportunities in the Food Chain Business.</h2>
+        <h2 class="title is-4 has-text-centered">
+          Lets make food waste &amp; food loss history by mapping opportunities
+          in the Food Chain Business.
+        </h2>
 
         <div class="columns">
           <div class="column is-half">
@@ -19,6 +22,9 @@
             </p>
             <a href="/connections">Read more</a>
           </div>
+          <div class="column">
+            <img src="~/assets/images/connections.png"/>
+          </div>
         </div>
       </div>
     </section>
@@ -26,7 +32,9 @@
     <section class="section">
       <div class="container">
         <div class="columns">
-          <div class="column"></div>
+          <div class="column">
+            <img src="~/assets/images/platform.png" alt="">
+          </div>
           <div class="column is-half">
             <small class="caption is-primary">Het platform</small>
             <h2 class="subtitle">Waar onze mogelijkheden liggen</h2>
@@ -55,16 +63,19 @@
             <h2 class="subtitle">Een divers landschap</h2>
             <p class="mb-4">
               Het landschap van Innovaties, Ideeën en Initiatieven binnen het
-              Food Waste &amp; Food loss thema is indrukwekkend! Om alle beweging
-              binnen de voedselsyclus op dit thema te bundelen hebben wij de
-              Food Waste Solution Map (FWSM) ontwikkeld. De Food Waste Solution
-              Map komt voort uit het idee om de oplossingen tegen
+              Food Waste &amp; Food loss thema is indrukwekkend! Om alle
+              beweging binnen de voedselsyclus op dit thema te bundelen hebben
+              wij de Food Waste Solution Map (FWSM) ontwikkeld. De Food Waste
+              Solution Map komt voort uit het idee om de oplossingen tegen
               voedselverspilling-en verlies, in kaart te brengen en te bundelen
               naar sectorgroep. Binnen ons netwerk zien wij dat er veel
               initiatieven al lange tijd gaande zijn en er in rap tempo veel
               nieuwe start-up innovaties en mogelijkheden bij komen.
             </p>
             <a href="/about">Read more</a>
+          </div>
+          <div class="column">
+            <img src="~/assets/images/mapping.png" alt="">
           </div>
         </div>
       </div>
@@ -86,9 +97,8 @@
 }
 </style>
 
-<script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
-  name: "FrontBlurb",
-});
+<script>
+export default {
+  name: "FrontBlurb"
+};
 </script>

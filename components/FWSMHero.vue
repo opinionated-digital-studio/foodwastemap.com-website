@@ -11,38 +11,38 @@
         </div>
       </div>
       <form method="GET" action="/platform">
-      <div class="hero-search">
-        <div class="field has-addons">
-          <div class="control is-expanded has-icons-left">
-            <input
-              class="hero-search__input input is-full-width is-medium"
-              type="text"
-              name="orgName"
-              placeholder="Search company by name"
-            />
-            <span class="icon is-medium is-left">
-              <i class="fas fa-search"></i>
-            </span>
+        <div class="hero-search">
+          <div class="field has-addons">
+            <div class="control is-expanded has-icons-left">
+              <input
+                class="hero-search__input input is-full-width is-medium"
+                type="text"
+                name="orgName"
+                placeholder="Search company by name"
+              />
+              <span class="icon is-medium is-left">
+                <i class="fas fa-search"></i>
+              </span>
+            </div>
+            <div class="control">
+              <a class="hero-search__search-button button is-light is-medium">
+                Search
+              </a>
+            </div>
           </div>
-          <div class="control">
-            <a class="hero-search__search-button button is-light is-medium">
-              Search
-            </a>
+          <div class="hero-search__tags">
+            <div>Sectors:</div>
+            <a href="" class="button is-small is-light">Production</a>
+            <a href="" class="button is-small is-light">Harvesting</a>
+            <a href="" class="button is-small is-light">Processing</a>
+            <a href="" class="button is-small is-light"
+              >Packaging, storage &amp; ripening</a
+            >
+            <a href="" class="button is-small is-light"
+              >Transportation &amp; distribution</a
+            >
           </div>
         </div>
-        <div class="hero-search__tags">
-          <div>Sectors:</div>
-          <a href="" class="button is-small is-light">Production</a>
-          <a href="" class="button is-small is-light">Harvesting</a>
-          <a href="" class="button is-small is-light">Processing</a>
-          <a href="" class="button is-small is-light"
-            >Packaging, storage &amp; ripening</a
-          >
-          <a href="" class="button is-small is-light"
-            >Transportation &amp; distribution</a
-          >
-        </div>
-      </div>
       </form>
     </section>
   </div>
@@ -125,9 +125,8 @@
 }
 </style>
 
-<script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
-  name: "FWSMHero",
-});
+<script>
+export default {
+  name: "FWSMHero"
+};
 </script>

@@ -2,15 +2,13 @@
   <div class="fwsm-search-app-results__item box">
     <div class="fwsm-search-app-results__base-info">
       <dt class="fwsm-search-app-results__key">{{ org.orgName }}</dt>
-      <dd class="fwsm-search-app-results__value">
-        {{ formatSector.sectorName }}: {{ formatSector.subsectorName }}
+      <dd class="fwsm-search-app-results__value" v-html="org.fwsmSector && org.fwsmSector.name">
       </dd>
       <dd
         class="fwsm-search-app-results__value fwsm-search-app-results__country"
       >
         <small>
-          <i class="fas fa-globe"></i> &nbsp; {{ org.address.city }},
-          {{ org.address.country }}
+          <i class="fas fa-globe"></i> &nbsp; {{ formatOrgLocation }}
         </small>
       </dd>
     </div>
@@ -22,8 +20,9 @@
       >
       <dd class="fwsm-search-app-results__meta">
         <small>
-          <i class="fas fa-calendar"></i> &nbsp; {{ formatModfiedOn }}</small
-        >
+          <i class="fas fa-calendar"></i> &nbsp;
+          {{ formatLastModified }}
+        </small>
       </dd>
     </div>
   </div>
@@ -69,37 +68,18 @@ export default {
   props: {
     org: {
       type: Object,
-      required: true,
-    },
-    fwsmSectors: {
-      type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
-    formatModfiedOn: function () {
-      const timestamp = this.org.modifiedOn;
-      const date = new Date(timestamp);
-      const formattedDate = format(date, "dd LLL yyyy");
-      return formattedDate;
+    formatLastModified: function() {
+      return format(this.org.modifiedOn, "d MMMM yyyy");
     },
-    formatSector: function () {
-      const sectorId = this.org.sectorId;
-      const subsectorId = this.org.subsectorId;
-      const fwsmSectors = this.fwsmSectors;
-      const foundSector = fwsmSectors.find(function (fwsmSector) {
-        return fwsmSector.id === sectorId;
-      });
-      const foundSubsector = foundSector.fwsmSubsectors.find(function (
-        fwsmSubsector
-      ) {
-        return fwsmSubsector.id === subsectorId;
-      });
-      return {
-        sectorName: foundSector.name,
-        subsectorName: foundSubsector.name,
-      };
-    },
-  },
+    formatOrgLocation: function() {
+      if (this.org.address) {
+        return this.org.address.city + ", " + this.org.address.country;
+      }
+    }
+  }
 };
 </script>

@@ -6,7 +6,6 @@
           <a class="navbar-item" href="/">
             <img id="logo" src="~/assets/images/logo.png" />
           </a>
-
           <a
             role="button"
             class="navbar-burger burger"
@@ -34,7 +33,7 @@
               Platform
             </a>
 
-            <a href="/pricing" class="navbar-item">
+            <a v-if="!isAuthenticated" href="/pricing" class="navbar-item">
               Pricing
             </a>
 
@@ -45,23 +44,46 @@
 
           <div class="navbar-end">
             <div class="navbar-item">
-              <div class="buttons">
+              <div v-if="isAuthenticated" class="buttons">
+                <a
+                  class="button is-primary"
+                  :href="'/platform/profile/' + loggedInUser.id"
+                  >My profile</a
+                >
+                <a class="button is-danger" href="" @click="logout">Sign out</a>
+              </div>
+              <div v-else class="buttons">
                 <a href="/sign-up" class="button is-primary">
                   <strong>Sign up</strong>
                 </a>
-                <a class="button is-light">
-                  Log in
+                <a href="/sign-in" class="button is-light">
+                  Sign in
                 </a>
               </div>
             </div>
             <div class="navbar-item">
-              <a href="https://twitter.com/in_me20" target="__blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a
+                href="https://twitter.com/in_me20"
+                target="__blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
             </div>
             <div class="navbar-item">
-              <a href="https://www.instagram.com/inme_magazine/" target="__blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a
+                href="https://www.instagram.com/inme_magazine/"
+                target="__blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
             </div>
             <div class="navbar-item">
-              <a href="https://www.linkedin.com/in/irinatskiti/?originalSubdomain=nl" target="__blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a
+                href="https://www.linkedin.com/in/irinatskiti/?originalSubdomain=nl"
+                target="__blank"
+                aria-label="LinkedIn"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
             </div>
           </div>
         </div>
@@ -91,9 +113,17 @@
 }
 </style>
 
-<script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
-  name: "FWSMHeader"
-});
+<script>
+import { mapGetters } from "vuex";
+export default {
+  name: "FWSMHeader",
+  computed: {
+    ...mapGetters(["isAuthenticated", "loggedInUser"])
+  },
+  methods: {
+    async logout() {
+      await this.$auth.logout();
+    }
+  }
+};
 </script>

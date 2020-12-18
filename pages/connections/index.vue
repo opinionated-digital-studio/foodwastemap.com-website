@@ -114,7 +114,7 @@
   color: $production;
 }
 
-.processing { 
+.processing {
   color: $processing;
 }
 
@@ -156,12 +156,11 @@
 }
 </style>
 
-<script lang="ts">
+<script>
 import FWSMCallToAction from "~/components/FWSMCallToAction.vue";
-import Vue from "vue";
-export default Vue.extend({
+export default {
   components: {
-    FWSMCallToAction,
-  },
-});
+    FWSMCallToAction
+  }
+};
 </script>

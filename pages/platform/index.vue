@@ -18,34 +18,32 @@
               <span class="fwsm-search-app__label--found"
                 >{{ numberOfOrgsFound }} organization(s)</span
               >
-              found
             </div>
             <div class="column">
               <FWSMMainSearch
-                :fwsmSectors="availableSectors"
-                @doSearch="initiateSearch"
+                :fwsmSectors="fwsmSectors"
+                @search-query-changed="getSearchQueryData"
+                @fwsm-sector-changed="getFwsmSectorQueryData"
+                @doSearch="doSearch"
               />
             </div>
           </div>
-
           <div class="columns">
-            <div class="column is-one-third">
-              <FWSMFilter v-if="availableSubsectors" :fwsmSubsectors="availableSubsectors" />
-            </div>
+            <div class="column is-one-third"></div>
+
             <div class="column">
-              <FWSMResults
-                v-if="!isLoading"
-                :found="availableOrgs || initOrgs"
-                :fwsmSectors="availableSectors"
-              />
-            <div class="has-text-centered" v-if="isLoading">
-              <i class="fas fa-spinner"></i>
-              <p>Loading...</p>
-            </div>
-            <div class="has-text-centered" v-if="numberOfOrgsFound === 0 && !isLoading">
-              <i class="fas fa-times"></i>
-              <p>No companies found with your chosen search query</p>
-            </div>
+              <FWSMResults :orgs="mergedOrgs" />
+              <div class="has-text-centered" v-if="isLoading">
+                <i class="fas fa-spinner"></i>
+                <p>Loading...</p>
+              </div>
+              <div
+                class="has-text-centered"
+                v-if="numberOfOrgsFound === 0 && !isLoading"
+              >
+                <i class="fas fa-times"></i>
+                <p>No companies found with your chosen search query</p>
+              </div>
             </div>
           </div>
         </div>
@@ -68,85 +66,96 @@
 import FWSMFilter from "~/components/search-app/FWSMFilter.vue";
 import FWSMMainSearch from "~/components/search-app/FWSMMainSearch.vue";
 import FWSMResults from "~/components/search-app/FWSMResults.vue";
-import querystring from "querystring";
 
 export default {
-  components: { FWSMMainSearch, FWSMFilter, FWSMResults },
-
+  components: {
+    FWSMFilter,
+    FWSMMainSearch,
+    FWSMResults
+  },
   async asyncData(context) {
-    const query = context.query;
-    const initOrgs = await context.$axios.$get(
-      `${process.env.FWSM_API_URL}/orgs`,
-      { params: query }
-    );
-    const allSectors = await context.$axios.$get(
-      `${process.env.FWSM_API_URL}/fwsm-sectors`
-    );
+    const fwsmSectors = await context.$axios
+      .$get("/fwsm-sectors")
+      .then(res => res)
 
-    return {
-      initOrgs,
-      allSectors,
-    };
+      .catch(err => {
+        console.log(err);
+        return err;
+      });
+
+    const orgs = await context.$axios
+      .get("/orgs")
+      .then(res => res.data)
+
+      .catch(err => {
+        console.log(err);
+        return err;
+      });
+
+    return { fwsmSectors, orgs };
   },
   data() {
     return {
-      availableOrgs: null,
       isLoading: false,
+      searchOptions: {
+        searchQuery: "",
+        fwsmSector: ""
+      }
     };
   },
   computed: {
-    availableSectors: function () {
-      const availableOrgs = this.initOrgs;
-      const allSectors = this.allSectors;
-      const availableSectors = availableOrgs.map(function (org) {
-        return org.sectorId;
-      });
-      const allAvailableSectors = availableSectors.flat();
-      return allSectors.filter(function (sector) {
-        return allAvailableSectors.some(function (availableSector) {
-          return sector.id === availableSector;
+    mergedOrgs: function() {
+      if (this.orgs && this.fwsmSectors) {
+        const mergedOrgs = this.orgs.map(org => {
+          const relatedSector = this.fwsmSectors;
+          const relatedFwsmSector = this.fwsmSectors.find(
+            fwsmSector => fwsmSector.id === org.fwsmSectorId
+          );
+          return { ...org, fwsmSector: relatedFwsmSector };
         });
-      });
-    },
-    availableSubsectors: function () {
-      if (this.availableSectors) {
-        const availableSectors = this.availableSectors
-        const filterSubsectors = availableSectors.map(function(availableSector) {
-          return availableSector.fwsmSubsectors
-        })
-        const availableOrgs = this.availableOrgs || this.initOrgs
-        const availableSubsectors = availableOrgs.map(function(availableOrg) {
-          return filterSubsectors.flat().find(function(subsector) {
-            return (subsector.id === availableOrg.subsectorId)
-          })
-        })
-        return availableSubsectors
-      } else {
-        return null
+        return mergedOrgs;
       }
     },
-    numberOfOrgsFound: function () {
-      if (this.availableOrgs) {
-        return this.availableOrgs.length;
-      } else {
-        return this.initOrgs.length;
-      }
-    },
+    numberOfOrgsFound: function() {
+      return this.orgs.length;
+    }
   },
   methods: {
-    initiateSearch: async function (val) {
-      const query = {
-        orgName: val.searchQuery,
-        country: val.selectedCountry,
-        sectorId: val.selectedSector,
-      };
+    doSearch: async function(e) {
       this.isLoading = true;
-      const foundSectors = await this.$axios.$get("/api" + "/orgs", {
-        params: query,
-      });
-      this.availableOrgs = foundSectors;
+      const searchQuery =
+        this.searchOptions.searchQuery.length > 1
+          ? `&orgName=${this.searchOptions.searchQuery}`
+          : "";
+      const fwsmSectorQuery =
+        this.searchOptions.fwsmSector.length > 1
+          ? `&fwsmSectorId=${this.searchOptions.fwsmSector}`
+          : "";
+      const foundOrgs = await this.$axios.$get(
+        `/api/orgs/?${searchQuery}${fwsmSectorQuery}`
+      );
       this.isLoading = false;
+      this.orgs = foundOrgs;
     },
-  },
+    getSearchQueryData: function(e) {
+      console.log(e);
+      this.searchOptions.searchQuery = e;
+    },
+    getCountryQueryData: function(e) {
+      this.searchOptions.country = e;
+    },
+    getFwsmSectorQueryData: function(e) {
+      this.searchOptions.fwsmSector = e;
+    }
+  }
 };
+
+function removeEmptyArrayItems(array) {
+  return array.filter(item => item);
+}
+
+function removeDuplicates(array) {
+  const uniqueSet = new Set(array);
+  return [...uniqueSet];
+}
 </script>

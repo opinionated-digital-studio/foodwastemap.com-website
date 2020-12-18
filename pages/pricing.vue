@@ -15,10 +15,10 @@
         <div class="columns">
           <div class="column is-two-thirds">
             <p class="subtitle pb-5 mb-5">
-              Met de ‘Food Waste Solutions Map' willen wij bedrijven, instanties,
-              universiteiten/opleidingen, retail en consumenten uitnodigen om te
-              indiceren in welk stadium (onder welke sector) van de map hun
-              drijfveer/prioriteit/product of belang ligt!
+              Met de ‘Food Waste Solutions Map' willen wij bedrijven,
+              instanties, universiteiten/opleidingen, retail en consumenten
+              uitnodigen om te indiceren in welk stadium (onder welke sector)
+              van de map hun drijfveer/prioriteit/product of belang ligt!
             </p>
           </div>
         </div>
@@ -170,12 +170,12 @@
 }
 </style>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
-import FwsmCallToAction from '~/components/FWSMCallToAction.vue'
-export default Vue.extend({
+import FwsmCallToAction from "~/components/FWSMCallToAction.vue";
+export default {
   components: {
     FwsmCallToAction
   }
-});
+};
 </script>
