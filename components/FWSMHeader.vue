@@ -47,7 +47,7 @@
               <div v-if="isAuthenticated" class="buttons">
                 <a
                   class="button is-primary"
-                  :href="'/platform/profile/' + loggedInUser.id"
+                  :href="'/platform/profile/' + loggedInUser.organizationId"
                   >My profile</a
                 >
                 <a class="button is-danger" href="" @click="logout">Sign out</a>

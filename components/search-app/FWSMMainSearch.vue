@@ -12,9 +12,9 @@
               <option value="">All sectors</option>
               <option
                 v-for="fwsmSector in fwsmSectors"
-                :key="fwsmSector.id"
-                :value="fwsmSector.id"
-                v-html="fwsmSector.name"
+                :key="fwsmSector.subsectorId"
+                :value="fwsmSector.subsectorId"
+                v-html="fwsmSector.subsector"
               ></option>
             </select>
           </div>
@@ -25,7 +25,7 @@
         <div class="control is-expanded has-icons-left">
           <input
             class="input"
-            name="orgName"
+            name="companyName"
             type="text"
             placeholder="Find a company"
             v-on:input="$emit('search-query-changed', $event.target.value)"

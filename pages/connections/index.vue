@@ -58,48 +58,35 @@
             href="/connections/subsector-example-1"
             class="fwsm-sectors__link block"
           >
-            <div class="fwsm-sectors__icon">
-              <i class="fas fa-circle fa-2x production"></i>
-            </div>
+            <img class="fwsm-sectors__icon" src="~/assets/images/productie.png" alt="" srcset="">
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Productie/oogst</h2>
-              <p class="subtitle is-5">A short description</p>
             </div>
           </a>
           <a href="" class="fwsm-sectors__link block">
-            <div class="fwsm-sectors__icon">
-              <i class="fas fa-circle fa-2x processing"></i>
-            </div>
+            <img class="fwsm-sectors__icon" src="~/assets/images/processing.png" alt="" srcset="">
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Verwerking/productie</h2>
-              <p class="subtitle is-5">A short description</p>
             </div>
           </a>
           <a href="" class="fwsm-sectors__link block">
-            <div class="fwsm-sectors__icon">
-              <i class="fas fa-circle fa-2x packaging"></i>
-            </div>
+            <img class="fwsm-sectors__icon" src="~/assets/images/packaging.png" alt="" srcset="">
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Verpakking, opslag &amp; rijping</h2>
-              <p class="subtitle is-5">A short description</p>
             </div>
           </a>
           <a href="" class="fwsm-sectors__link block">
-            <div class="fwsm-sectors__icon">
-              <i class="fas fa-circle fa-2x distribution"></i>
-            </div>
+            <img class="fwsm-sectors__icon" src="~/assets/images/distribution.png" alt="" srcset="">
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Distributie &amp; transport</h2>
-              <p class="subtitle is-5">A short description</p>
             </div>
           </a>
           <a href="" class="fwsm-sectors__link block">
             <div class="fwsm-sectors__icon">
-              <i class="fas fa-circle fa-2x retail"></i>
+              <img class="fwsm-sectors__icon" src="~/assets/images/retail.png" alt="" srcset="">
             </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Retail &amp; consument</h2>
-              <p class="subtitle is-5">A short description</p>
             </div>
           </a>
         </nav>
@@ -137,8 +124,8 @@
   }
 
   &__icon {
-    margin-right: 2rem;
-    color: $primary !important;
+    width: 4rem;
+    margin-right: 1.8rem;
   }
 
   &__link {

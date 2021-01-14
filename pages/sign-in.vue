@@ -6,11 +6,9 @@
           <div class="column is-one-third">
             <div class="box">
               <h1 class="title">Sign in</h1>
-              <p class="mb-5">
-                Welcome back to FWSM
-              </p>
+              <p class="mb-5">Welcome back to FWSM</p>
 
-              <div v-if="error" class="has-text-danger mb-2">{{ error }}</div>
+              <div v-if="error" class="notification is-danger">{{ error }}</div>
               <form @submit.prevent="signIn" method="post">
                 <div class="field">
                   <label class="label">
@@ -27,7 +25,7 @@
 
                 <div class="field">
                   <label class="label">
-                    Last name
+                    Password
                     <input
                       class="input"
                       type="password"
@@ -59,30 +57,40 @@
 </style>
 
 <script>
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
 export default {
   data() {
     return {
       email: "",
       password: "",
-      error: null
+      error: null,
     };
   },
   methods: {
     async signIn() {
-      console.log("signing in");
-      try {
-        await this.$auth.loginWith("local", {
-          data: {
-            email: this.email,
-            password: this.password
-          }
-        });
+      if (this.email === "" || undefined || !validateEmail(this.email)) {
+        this.error = "Fill in a valid email address";
+      } else if (this.password.length < 8) {
+        this.error = "The password you have entered is incorrect"
+      } else {
+        try {
+          await this.$auth.loginWith("local", {
+            data: {
+              email: this.email,
+              password: this.password,
+            },
+          });
 
-        /* this.$router.push("/"); */
-      } catch (e) {
-        this.error = e.response.data.error;
+          // this.$router.push("/")
+        } catch (e) {
+          this.error = e.response.data.message;
+        }
       }
-    }
-  }
+    },
+  },
 };
 </script>

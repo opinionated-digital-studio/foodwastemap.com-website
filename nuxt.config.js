@@ -2,17 +2,16 @@ import pkg from "./package";
 require('dotenv').config()
 
 export default {
-  mode: "universal",
 
   /*
    ** Headers of the page
    */
   head: {
-    title: pkg.name,
+    title: 'Food Waste Solution Map',
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: pkg.description }
+      { hid: "description", name: "description", content: 'Maak voedselverspilling verleden tijd' }
     ],
     link: [
       {
@@ -58,8 +57,7 @@ export default {
   ],
 
   axios: {
-    proxy: true,
-    baseURL: process.env.FWSM_API_URL
+    proxy: true
   },
 
   proxy: {
@@ -69,14 +67,22 @@ export default {
   auth: {
     strategies: {
       local: {
+        token: {
+          property: 'accessToken',
+          type: false
+        },
+        user: {
+          property: 'organization'
+        },
         endpoints: {
-          login: { url: 'api/org-user/login', method: 'post', propertyName: 'token' },
-          user: { url: 'api/org-user', method: 'get', propertyName: 'user' },
+          login: { url: '/api/users/login', method: 'post'},
+          user: { url: '/api/organizations/me', method: 'get'},
           logout: false
         }
       }
     }
   },
+
   styleResources: {
     scss: ["~assets/scss/main.scss"]
   },

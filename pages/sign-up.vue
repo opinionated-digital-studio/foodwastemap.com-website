@@ -14,24 +14,12 @@
               <form method="post" @submit.prevent="signUp">
                 <div class="field">
                   <label class="label">
-                    First name
+                    Full name
                     <input
                       class="input"
                       type="text"
-                      name="fname"
-                      v-model="firstName"
-                    />
-                  </label>
-                </div>
-
-                <div class="field">
-                  <label class="label">
-                    Last name
-                    <input
-                      class="input"
-                      type="text"
-                      name="lname"
-                      v-model="lastName"
+                      name="full-name"
+                      v-model="fullName"
                     />
                   </label>
                 </div>
@@ -55,7 +43,7 @@
                       class="input"
                       type="text"
                       name="company-name"
-                      v-model="orgName"
+                      v-model="companyName"
                     />
                   </label>
                 </div>
@@ -113,44 +101,45 @@
 export default {
   data() {
     return {
-      firstName: "",
-      lastName: "",
+      fullName: "",
+      companyName: "",
       email: "",
-      orgName: "",
       password: "",
       passwordConfirm: "",
-      error: null
+      error: null,
     };
   },
   methods: {
-    signUp: async function() {
-      if (this.password !== this.passwordConfirm) {
+    signUp: async function () {
+      if (this.fullName === "") {
+        this.error = "You must enter your full name";
+      } else if (this.password.length < 8) {
+        this.error = "Your password must be longer than 8 characters"
+      } else if (this.password !== this.passwordConfirm) {
         this.error = "The passwords you have entered do not match";
       } else {
         try {
-          await this.$axios.$post("/api/orgs", {
-            orgName: this.orgName,
+          await this.$axios.$post("/api/users", {
+            fullName: this.fullName,
+            companyName: this.companyName,
+            email: this.email,
             password: this.password,
-            contactPerson: {
-              firstName: this.firstName,
-              lastName: this.lastName,
-              email: this.email
-            }
           });
 
           await this.$auth.loginWith("local", {
             data: {
               email: this.email,
-              password: this.password
-            }
+              password: this.password,
+            },
           });
 
-          this.$router.push("/");
+          this.$router.push("/platform/profile/edit");
         } catch (e) {
+          console.log(e)
           this.error = e.response.data.error;
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>

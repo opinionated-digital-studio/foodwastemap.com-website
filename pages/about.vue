@@ -22,6 +22,8 @@
               implementeren. Om zo een groene en duurzame economie te
               ontwikkelen.
             </p>
+
+            <img class="mb-5" src="~/assets/images/over_ons.jpg" alt="">
             <p>
               In-Me presenteert innovatieve producten van internationale
               bedrijven via evenementen, netwerkmogelijkheden, presentatie op

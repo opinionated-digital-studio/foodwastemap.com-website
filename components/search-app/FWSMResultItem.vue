@@ -1,20 +1,25 @@
 <template>
   <div class="fwsm-search-app-results__item box">
     <div class="fwsm-search-app-results__base-info">
-      <dt class="fwsm-search-app-results__key">{{ org.orgName }}</dt>
-      <dd class="fwsm-search-app-results__value" v-html="org.fwsmSector && org.fwsmSector.name">
-      </dd>
+      <dt class="fwsm-search-app-results__key">
+        {{ organization.companyName }}
+      </dt>
+      <dd
+        class="fwsm-search-app-results__value"
+        v-html="organization.subsectorId && formatSectorName"
+      ></dd>
       <dd
         class="fwsm-search-app-results__value fwsm-search-app-results__country"
       >
         <small>
-          <i class="fas fa-globe"></i> &nbsp; {{ formatOrgLocation }}
+          <i v-if="organization.address.country" class="fas fa-globe"></i>
+          &nbsp; {{ formatOrgLocation }}
         </small>
       </dd>
     </div>
     <div class="fwsm-search-app-results__action">
       <a
-        :href="'/platform/profile/' + org.id"
+        :href="'/platform/profile/' + organization.organizationId"
         class="button is-primary is-light is-medium mb-2"
         >More info</a
       >
@@ -66,20 +71,41 @@ import { format } from "date-fns";
 export default {
   name: "FWSMResultItem",
   props: {
-    org: {
+    organization: {
       type: Object,
-      required: true
+      required: true,
+    },
+  },
+  data(){
+    return {
+      sectors: []
     }
   },
+  async fetch () {
+    const { sectors } = await this.$axios
+      .$get("/api/sectors/all")
+      .then(res => res)
+    this.sectors = sectors
+  },
   computed: {
-    formatLastModified: function() {
-      return format(this.org.modifiedOn, "d MMMM yyyy");
+    formatLastModified: function () {
+      return format(this.organization.modifiedOn, "d MMMM yyyy");
     },
-    formatOrgLocation: function() {
-      if (this.org.address) {
-        return this.org.address.city + ", " + this.org.address.country;
+    formatOrgLocation: function () {
+      if (this.organization.address) {
+        return (
+          this.organization.address.city +
+          ", " +
+          this.organization.address.country
+        );
       }
-    }
-  }
+    },
+    formatSectorName: function () {
+      if (this.organization.subsectorId && this.sectors.length >= 1) {
+        const match = this.sectors.find(sector => sector.subsectorId === this.organization.subsectorId )
+        return match.subsector
+      }
+    },
+  },
 };
 </script>
