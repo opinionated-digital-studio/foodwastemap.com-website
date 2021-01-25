@@ -9,9 +9,11 @@
           <a
             role="button"
             class="navbar-burger burger"
+            :class="{ 'is-active': isActive }"
             aria-label="menu"
             aria-expanded="false"
             data-target="mainNav"
+            @click="toggleMenu"
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -19,7 +21,11 @@
           </a>
         </div>
 
-        <div id="mainNav" class="navbar-menu">
+        <div
+          id="mainNav"
+          class="navbar-menu"
+          :class="{ 'is-active': isActive }"
+        >
           <div class="navbar-start">
             <a href="/" class="navbar-item">
               Home
@@ -120,7 +126,15 @@ export default {
   computed: {
     ...mapGetters(["isAuthenticated", "loggedInUser"])
   },
+  data() {
+    return {
+      isActive: false
+    };
+  },
   methods: {
+    toggleMenu() {
+      this.isActive = !this.isActive;
+    },
     async logout() {
       await this.$auth.logout();
     }
