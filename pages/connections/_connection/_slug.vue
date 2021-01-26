@@ -20,7 +20,7 @@
         <div class="columns">
           <div class="column is-two-thirds">
             <h2 class="title is-1 mb-4">{{ currentPage.title }}</h2>
-            <div v-html="currentPage.content"></div>
+            <div class="content" v-html="currentPage.content"></div>
           </div>
           <div class="column">
             <aside class="menu">
@@ -61,6 +61,7 @@ export default {
       slug: context.params.slug,
       props: "title,content,slug",
     });
+    console.log(currentPage.object.content)
     const relatedPages = await bucket.getObjects({
       type: "segments",
       sort: "title",
