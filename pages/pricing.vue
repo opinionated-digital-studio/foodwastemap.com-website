@@ -11,9 +11,11 @@
           </ul>
         </nav>
 
-        <h1 class="title is-1">Pricing</h1>
+        <h1 class="title is-1">Prijzen</h1>
         <div class="columns">
           <div class="column is-two-thirds">
+            <img id="free-promo" class="mb-5" src="~/assets/images/free-promo.png" alt="t/m 31 maart 1 jaar een GRATIS accountpagina">
+            <br/>
             <p class="subtitle pb-5 mb-5">
               Met de ‘Food Waste Solutions Map' willen wij bedrijven,
               instanties, universiteiten/opleidingen, retail en consumenten
@@ -23,7 +25,7 @@
           </div>
         </div>
 
-        <div class="columns fwsm-pricing-table">
+        <!-- <div class="columns fwsm-pricing-table">
           <div class="column is-one-quarter fwsm-pricing-table__column">
             <div class="box fwsm-pricing-table__card">
               <h3
@@ -103,7 +105,7 @@
               >
             </div>
           </div>
-        </div>
+        </div> -->
 
         <h2 class="title">Alle voordelen op een rij</h2>
         <div class="content">
@@ -111,6 +113,9 @@
             <li>
               Zoek naar exposure, netwerken of nieuwe oplossingen en kansen voor
               uw bedrijf.
+            </li>
+            <li>
+              Een eigen accountpagina, waarop teksten en afbeeldingen ten alle tijden kunnen worden aangepast.
             </li>
             <li>Maak connecties.</li>
             <li>
@@ -166,6 +171,12 @@
 
   &__cta {
     margin-top: auto;
+  }
+}
+
+#free-promo {
+  @include desktop() {
+    width: 50%;
   }
 }
 </style>
