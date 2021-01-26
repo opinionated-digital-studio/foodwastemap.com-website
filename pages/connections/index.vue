@@ -55,7 +55,7 @@
 
         <nav class="fwsm-sectors">
           <a
-            href="/connections/subsector-example-1"
+            href="/connections/production"
             class="fwsm-sectors__link block"
           >
             <div class="fwsm-sectors__icon-container">
@@ -65,7 +65,7 @@
               <h2 class="title is-4">Productie/oogst</h2>
             </div>
           </a>
-          <a href="" class="fwsm-sectors__link block">
+          <a href="/connections/processing" class="fwsm-sectors__link block">
             <div class="fwsm-sectors__icon-container">
               <img class="fwsm-sectors__icon" src="~/assets/images/processing.png" alt="" srcset="">
             </div>
@@ -73,7 +73,7 @@
               <h2 class="title is-4">Verwerking/productie</h2>
             </div>
           </a>
-          <a href="" class="fwsm-sectors__link block">
+          <a href="/connections/packaging" class="fwsm-sectors__link block">
             <div class="fwsm-sectors__icon-container">
               <img class="fwsm-sectors__icon" src="~/assets/images/packaging.png" alt="" srcset="">
             </div>
@@ -81,7 +81,7 @@
               <h2 class="title is-4">Verpakking, opslag &amp; rijping</h2>
             </div>
           </a>
-          <a href="" class="fwsm-sectors__link block">
+          <a href="/connections/distribution" class="fwsm-sectors__link block">
             <div class="fwsm-sectors__icon-container">
               <img class="fwsm-sectors__icon" src="~/assets/images/distribution.png" alt="" srcset="">
             </div>
@@ -89,7 +89,7 @@
               <h2 class="title is-4">Distributie &amp; transport</h2>
             </div>
           </a>
-          <a href="" class="fwsm-sectors__link block">
+          <a href="/connections/retail" class="fwsm-sectors__link block">
             <div class="fwsm-sectors__icon-container">
               <img class="fwsm-sectors__icon" src="~/assets/images/retail.png" alt="" srcset="">
             </div>
@@ -161,7 +161,19 @@
 
 <script>
 import FWSMPosterDownload from "~/components/FWSMPosterDownload.vue";
+import bucket from '~/plugins/cosmic'
 export default {
+  async asyncData(context) {
+    const { objects } = await bucket.getObjects({
+      type: 'segments',
+      props: 'slug',
+      metafields: [{
+        key: 'connection',
+        value: 'Production',
+      }]
+    })
+    console.log(objects)
+  },
   components: {
     FWSMPosterDownload
   }
