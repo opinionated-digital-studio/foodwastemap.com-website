@@ -7,28 +7,35 @@
             <li><a href="/">Home</a></li>
             <li><a href="/connections">Connections</a></li>
             <li>
-              <a :href="`/connections/${currentConnection.slug}`">{{
-                currentConnection.title
+              <a :href="`/connections/${currentConnectionSlug}`">{{
+                currentConnectionTitle
               }}</a>
+            </li>
+
             <li class="is-active">
-              <a :href="`/connections/${currentConnection.slug}/${currentPage.slug}`" aria-current="page">{{
-                currentPage.title
-              }}</a>
+              <a
+                :href="`/connections/${currentConnectionSlug}/${currentPage.slug}`"
+                aria-current="page"
+                >{{ currentPage.title }}</a
+              >
             </li>
           </ul>
         </nav>
         <div class="columns">
           <div class="column is-two-thirds">
-            <h2 class="title is-1 mb-4">{{ currentPage.title }}</h2>
+            <span class="is-size-4 mb-3 has-text-grey">{{currentConnectionTitle}}</span>
+            <h2 class="title is-2">{{ currentPage.title }}</h2>
             <div class="content" v-html="currentPage.content"></div>
           </div>
           <div class="column">
             <aside class="menu">
-              <p class="menu-label">{{ currentConnection.title }}</p>
+              <p class="menu-label">{{ currentConnectionTitle }}</p>
               <ul class="menu-list">
                 <li v-for="page in relatedPages" :key="page.slug">
                   <a
-                    :href="'/connections/production/' + page.slug"
+                    :href="
+                      '/connections/' + currentConnectionSlug + '/' + page.slug
+                    "
                     :class="{ 'is-active': page.slug === currentPage.slug }"
                     >{{ page.title }}</a
                   >
@@ -61,17 +68,33 @@ export default {
       type: "segments",
       props: "title,slug,content",
       metadata: {
-        connection: context.params.connection.charAt(0).toUpperCase() + context.params.connection.slice(1)
-      }
+        connection:
+          context.params.connection.charAt(0).toUpperCase() +
+          context.params.connection.slice(1),
+      },
     });
+    console.log(context.params.connection);
     return {
       currentPage: relatedPages.objects[0],
       relatedPages: relatedPages.objects,
-      currentConnection: {
-        title: titleize(context.params.connection),
-        slug: context.params.connection,
-      },
+      currentConnectionSlug: context.params.connection,
     };
+  },
+  computed: {
+    currentConnectionTitle: function () {
+      switch (this.currentConnectionSlug) {
+        case "production":
+          return "Production and post harvesting";
+        case "processing":
+          return "Processing"
+        case "packaging":
+          return "Packaging, storage and ripening"
+        case "distribution":
+          return "Distribution"
+        case "retail":
+          return "Retail"
+      }
+    },
   },
   components: {
     FWSMCallToAction,

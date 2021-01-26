@@ -62,7 +62,7 @@
               <img class="fwsm-sectors__icon" src="~/assets/images/productie.png" alt="" srcset="">
             </div>
             <div class="fwsm-sectors__text">
-              <h2 class="title is-4">Productie/oogst</h2>
+              <h2 class="title is-4">Production and post harvesting</h2>
             </div>
           </a>
           <a href="/connections/processing" class="fwsm-sectors__link block">
@@ -70,7 +70,7 @@
               <img class="fwsm-sectors__icon" src="~/assets/images/processing.png" alt="" srcset="">
             </div>
             <div class="fwsm-sectors__text">
-              <h2 class="title is-4">Verwerking/productie</h2>
+              <h2 class="title is-4">Processing</h2>
             </div>
           </a>
           <a href="/connections/packaging" class="fwsm-sectors__link block">
@@ -78,7 +78,7 @@
               <img class="fwsm-sectors__icon" src="~/assets/images/packaging.png" alt="" srcset="">
             </div>
             <div class="fwsm-sectors__text">
-              <h2 class="title is-4">Verpakking, opslag &amp; rijping</h2>
+              <h2 class="title is-4">Packaging, storage and ripening</h2>
             </div>
           </a>
           <a href="/connections/distribution" class="fwsm-sectors__link block">
@@ -86,7 +86,7 @@
               <img class="fwsm-sectors__icon" src="~/assets/images/distribution.png" alt="" srcset="">
             </div>
             <div class="fwsm-sectors__text">
-              <h2 class="title is-4">Distributie &amp; transport</h2>
+              <h2 class="title is-4">Distribution</h2>
             </div>
           </a>
           <a href="/connections/retail" class="fwsm-sectors__link block">
@@ -94,7 +94,7 @@
               <img class="fwsm-sectors__icon" src="~/assets/images/retail.png" alt="" srcset="">
             </div>
             <div class="fwsm-sectors__text">
-              <h2 class="title is-4">Retail &amp; consument</h2>
+              <h2 class="title is-4">Retail</h2>
             </div>
           </a>
         </nav>

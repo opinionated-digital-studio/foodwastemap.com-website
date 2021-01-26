@@ -7,11 +7,11 @@
             <li><a href="/">Home</a></li>
             <li><a href="/connections">Connections</a></li>
             <li>
-              <a :href="`/connections/${currentConnection.slug}`">{{
-                currentConnection.title
+              <a :href="`/connections/${currentConnectionSlug}`">{{
+                currentConnectionTitle
               }}</a>
             <li class="is-active">
-              <a :href="`/connections/${currentConnection.slug}/${currentPage.slug}`" aria-current="page">{{
+              <a :href="`/connections/${currentConnectionSlug}/${currentPage.slug}`" aria-current="page">{{
                 currentPage.title
               }}</a>
             </li>
@@ -19,16 +19,17 @@
         </nav>
         <div class="columns">
           <div class="column is-two-thirds">
-            <h2 class="title is-1 mb-4">{{ currentPage.title }}</h2>
+            <span class="is-size-4 mb-3 has-text-grey">{{currentConnectionTitle}}</span>
+            <h2 class="title is-2">{{ currentPage.title }}</h2>
             <div class="content" v-html="currentPage.content"></div>
           </div>
           <div class="column">
             <aside class="menu">
-              <p class="menu-label">{{ currentConnection.title }}</p>
+              <p class="menu-label">{{ currentConnectionTitle }}</p>
               <ul class="menu-list">
                 <li v-for="page in relatedPages" :key="page.slug">
                   <a
-                    :href="'/connections/production/' + page.slug"
+                    :href="'/connections/' + currentConnectionSlug + '/' + page.slug"
                     :class="{ 'is-active': page.slug === currentPage.slug }"
                     >{{ page.title }}</a
                   >
@@ -61,7 +62,6 @@ export default {
       slug: context.params.slug,
       props: "title,content,slug",
     });
-    console.log(currentPage.object.content)
     const relatedPages = await bucket.getObjects({
       type: "segments",
       sort: "title",
@@ -72,11 +72,24 @@ export default {
     return {
       currentPage: currentPage.object,
       relatedPages: relatedPages.objects,
-      currentConnection: {
-        title: titleize(context.params.connection),
-        slug: context.params.connection,
-      },
+      currentConnectionSlug: context.params.connection
     };
+  },
+  computed: {
+    currentConnectionTitle: function () {
+      switch (this.currentConnectionSlug) {
+        case "production":
+          return "Production and post harvesting";
+        case "processing":
+          return "Processing"
+        case "packaging":
+          return "Packaging, storage and ripening"
+        case "distribution":
+          return "Distribution"
+        case "retail":
+          return "Retail"
+      }
+    }
   },
   components: {
     FWSMCallToAction,
