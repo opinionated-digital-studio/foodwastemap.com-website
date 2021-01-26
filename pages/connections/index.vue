@@ -58,31 +58,39 @@
             href="/connections/subsector-example-1"
             class="fwsm-sectors__link block"
           >
-            <img class="fwsm-sectors__icon" src="~/assets/images/productie.png" alt="" srcset="">
+            <div class="fwsm-sectors__icon-container">
+              <img class="fwsm-sectors__icon" src="~/assets/images/productie.png" alt="" srcset="">
+            </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Productie/oogst</h2>
             </div>
           </a>
           <a href="" class="fwsm-sectors__link block">
-            <img class="fwsm-sectors__icon" src="~/assets/images/processing.png" alt="" srcset="">
+            <div class="fwsm-sectors__icon-container">
+              <img class="fwsm-sectors__icon" src="~/assets/images/processing.png" alt="" srcset="">
+            </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Verwerking/productie</h2>
             </div>
           </a>
           <a href="" class="fwsm-sectors__link block">
-            <img class="fwsm-sectors__icon" src="~/assets/images/packaging.png" alt="" srcset="">
+            <div class="fwsm-sectors__icon-container">
+              <img class="fwsm-sectors__icon" src="~/assets/images/packaging.png" alt="" srcset="">
+            </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Verpakking, opslag &amp; rijping</h2>
             </div>
           </a>
           <a href="" class="fwsm-sectors__link block">
-            <img class="fwsm-sectors__icon" src="~/assets/images/distribution.png" alt="" srcset="">
+            <div class="fwsm-sectors__icon-container">
+              <img class="fwsm-sectors__icon" src="~/assets/images/distribution.png" alt="" srcset="">
+            </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Distributie &amp; transport</h2>
             </div>
           </a>
           <a href="" class="fwsm-sectors__link block">
-            <div class="fwsm-sectors__icon">
+            <div class="fwsm-sectors__icon-container">
               <img class="fwsm-sectors__icon" src="~/assets/images/retail.png" alt="" srcset="">
             </div>
             <div class="fwsm-sectors__text">
@@ -123,16 +131,24 @@
     flex-wrap: wrap;
   }
 
-  &__icon {
-    width: 4rem;
+  &__icon-container {
     margin-right: 1.8rem;
   }
 
+  &__icon {
+    width: 3rem;
+
+    @include desktop() {
+      width: 4rem;
+    }
+  }
+
   &__link {
-    padding: 2rem;
+    padding: 1rem;
     display: flex;
 
     @include desktop() {
+      padding: 2rem;
       width: 50%;
     }
 
