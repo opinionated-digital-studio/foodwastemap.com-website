@@ -100,7 +100,7 @@
         </nav>
       </div>
     </section>
-    <FWSMCallToAction />
+    <FWSMPosterDownload />
   </div>
 </template>
 
@@ -160,10 +160,10 @@
 </style>
 
 <script>
-import FWSMCallToAction from "~/components/FWSMCallToAction.vue";
+import FWSMPosterDownload from "~/components/FWSMPosterDownload.vue";
 export default {
   components: {
-    FWSMCallToAction
+    FWSMPosterDownload
   }
 };
 </script>

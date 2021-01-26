@@ -7,9 +7,8 @@
             <img src="~/assets/images/fwsm_poster.png" id="fwsm-poster" />
           </div>
           <div class="column">
-            <h3 class="title is-1">Put your organization on the map</h3>
-            <a href="" class="button is-white">Download de Food Waste Map poster</a>
-            <a href="" class="button is-white is-outlined">Contact us</a>
+            <h3 class="title is-1">Gratis te downloaden: een overzicht van alle Food Waste Map segmenten</h3>
+            <a target="_blank" href="/download/fwsm-poster.pdf" class="button is-white">Download de Food Waste Map poster</a>
           </div>
         </div>
       </div>
