@@ -5,16 +5,12 @@
         <div class="columns">
           <div class="column is-one-third">
             <div class="box">
-              <h1 class="title">Sign up</h1>
-              <p class="mb-5">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                <a href="">Read more</a>
-              </p>
+              <h1 class="title">Account aanmaken</h1>
               <div v-if="error" class="notification is-danger">{{ error }}</div>
               <form method="post" @submit.prevent="signUp">
                 <div class="field">
                   <label class="label">
-                    Full name
+                    Naam
                     <input
                       class="input"
                       type="text"
@@ -26,7 +22,7 @@
 
                 <div class="field">
                   <label class="label">
-                    Email address
+                    Emailadres
                     <input
                       class="input"
                       type="email"
@@ -38,7 +34,7 @@
 
                 <div class="field">
                   <label class="label">
-                    Company name
+                    Bedrijfsnaam
                     <input
                       class="input"
                       type="text"
@@ -50,7 +46,7 @@
 
                 <div class="field">
                   <label class="label">
-                    Password
+                    Wachtwoord
                     <input
                       class="input"
                       type="password"
@@ -62,7 +58,7 @@
 
                 <div class="field">
                   <label class="label">
-                    Confirm password
+                    Wachtwoord bevestigen
                     <input
                       class="input"
                       type="password"
@@ -76,11 +72,12 @@
                   class="button is-primary is-medium mt-5 mb-4 is-fullwidth"
                   type="submit"
                 >
-                  Sign up
+                  Account aanmaken
                 </button>
                 <small>
-                  Signing up signifies that you agree to the Terms of Service
-                  and our Privacy Policy.
+                  Door je aan te melden ben je akkoord met onze gebruikersvoorwaarden en privacybeleid.
+                  <!-- Signing up signifies that you agree to the Terms of Service
+                  and our Privacy Policy. -->
                 </small>
               </form>
             </div>

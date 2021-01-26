@@ -6,7 +6,7 @@
           <ul>
             <li><a href="/">Home</a></li>
             <li class="is-active">
-              <a href="/about" aria-current="page">About</a>
+              <a href="/about" aria-current="page">Over ons</a>
             </li>
           </ul>
         </nav>

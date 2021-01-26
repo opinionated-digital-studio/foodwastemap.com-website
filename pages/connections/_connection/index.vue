@@ -5,7 +5,7 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/connections">Connections</a></li>
+            <li><a href="/connections">Thema's</a></li>
             <li>
               <a :href="`/connections/${currentConnectionSlug}`">{{
                 currentConnectionTitle

@@ -20,7 +20,7 @@
               retail en eye-openers voor consumenten waardoor voedselverspilling
               ook aan het eind van de lijn wordt bestreden.
             </p>
-            <a href="/connections">Read more</a>
+            <a href="/connections">Meer lezen</a>
           </div>
           <div class="column">
             <img src="~/assets/images/connections.png"/>
@@ -47,7 +47,7 @@
               innovatieve oplossing tegen voedselverspilling-en verlies heeft
               zijn weerslag op de vervolgcyclus in de voedselketen.
             </p>
-            <a href="/platform">Read more</a>
+            <a href="/platform">Meer lezen</a>
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@
               initiatieven al lange tijd gaande zijn en er in rap tempo veel
               nieuwe start-up innovaties en mogelijkheden bij komen.
             </p>
-            <a href="/about">Read more</a>
+            <a href="/about">Meer lezen</a>
           </div>
           <div class="column">
             <img src="~/assets/images/mapping.png" alt="">

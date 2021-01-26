@@ -14,7 +14,7 @@
                     class="hero-search__input input is-full-width is-medium"
                     type="text"
                     name="company-name"
-                    placeholder="Search company by name"
+                    placeholder="Bedrijfsnaam zoeken"
                   />
                   <span class="icon is-medium is-left">
                     <i class="fas fa-search"></i>
@@ -24,7 +24,7 @@
                   <a
                     class="hero-search__search-button button is-light is-medium"
                   >
-                    Search
+                    Zoek
                   </a>
                 </div>
               </div>

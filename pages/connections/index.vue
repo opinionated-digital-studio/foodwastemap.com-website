@@ -6,11 +6,11 @@
           <ul>
             <li><a href="/">Home</a></li>
             <li class="is-active">
-              <a href="/connections" aria-current="page">Connections</a>
+              <a href="/connections" aria-current="page">Thema's</a>
             </li>
           </ul>
         </nav>
-        <h1 class="title is-1">Connections</h1>
+        <h1 class="title is-1">Thema's</h1>
         <div class="columns">
           <div class="column is-two-thirds">
             <p class="subtitle pb-5 mb-2">
@@ -63,6 +63,7 @@
             </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Production and post harvesting</h2>
+              <span>Meer lezen</span>
             </div>
           </a>
           <a href="/connections/processing" class="fwsm-sectors__link block">
@@ -71,6 +72,7 @@
             </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Processing</h2>
+              <span>Meer lezen</span>
             </div>
           </a>
           <a href="/connections/packaging" class="fwsm-sectors__link block">
@@ -79,6 +81,7 @@
             </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Packaging, storage and ripening</h2>
+              <span>Meer lezen</span>
             </div>
           </a>
           <a href="/connections/distribution" class="fwsm-sectors__link block">
@@ -87,6 +90,7 @@
             </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Distribution</h2>
+              <span>Meer lezen</span>
             </div>
           </a>
           <a href="/connections/retail" class="fwsm-sectors__link block">
@@ -95,6 +99,7 @@
             </div>
             <div class="fwsm-sectors__text">
               <h2 class="title is-4">Retail</h2>
+              <span>Meer lezen</span>
             </div>
           </a>
         </nav>

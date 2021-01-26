@@ -5,14 +5,14 @@
         <div class="columns">
           <div class="column is-one-third">
             <div class="box">
-              <h1 class="title">Sign in</h1>
-              <p class="mb-5">Welcome back to FWSM</p>
+              <h1 class="title">Inloggen</h1>
+              <p class="mb-5">Welkom terug bij FWSM</p>
 
               <div v-if="error" class="notification is-danger">{{ error }}</div>
               <form @submit.prevent="signIn" method="post">
                 <div class="field">
                   <label class="label">
-                    Email address
+                    Emailadres
                     <input
                       class="input"
                       type="email"
@@ -25,7 +25,7 @@
 
                 <div class="field">
                   <label class="label">
-                    Password
+                    Wachtwoord
                     <input
                       class="input"
                       type="password"
@@ -39,7 +39,7 @@
                   class="button is-primary is-medium mt-5 mb-4 is-fullwidth"
                   type="submit"
                 >
-                  Sign in
+                  Inloggen
                 </button>
               </form>
             </div>

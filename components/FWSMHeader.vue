@@ -32,7 +32,7 @@
             </a>
 
             <a href="/connections" class="navbar-item">
-              Connections
+              Thema's
             </a>
 
             <a href="/platform" class="navbar-item">
@@ -40,11 +40,11 @@
             </a>
 
             <a v-if="!isAuthenticated" href="/pricing" class="navbar-item">
-              Pricing
+              Prijzen
             </a>
 
             <a href="/about" class="navbar-item">
-              About
+              Over ons
             </a>
           </div>
 
@@ -54,16 +54,16 @@
                 <a
                   class="button is-primary"
                   :href="'/platform/profile/' + loggedInUser.organizationId"
-                  >My profile</a
+                  >Mijn profiel</a
                 >
-                <a class="button is-danger" href="" @click="logout">Sign out</a>
+                <a class="button is-danger" href="" @click="logout">Uitloggen</a>
               </div>
               <div v-else class="buttons">
                 <a href="/sign-up" class="button is-primary">
-                  <strong>Sign up</strong>
+                  <strong>Account aanmaken</strong>
                 </a>
                 <a href="/sign-in" class="button is-light">
-                  Sign in
+                  Inloggen
                 </a>
               </div>
             </div>
