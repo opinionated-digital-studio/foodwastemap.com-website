@@ -34,6 +34,7 @@ import bucket from "~/plugins/cosmic";
 
 export default {
   async asyncData(context) {
+    console.log("async hit");
     const currentPage = await bucket.getObject({
       slug: "about",
       locale: context.app.i18n.localeProperties.iso

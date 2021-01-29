@@ -184,10 +184,10 @@ export default {
     async logout() {
       await this.$auth.logout();
     },
-    setLocale(locale) {
+    async setLocale(locale) {
       this.currentLocale = locale;
-      this.$i18n.setLocale(locale);
       this.$i18n.setLocaleCookie(locale);
+      this.$router.push(this.switchLocalePath(locale));
     }
   }
 };
