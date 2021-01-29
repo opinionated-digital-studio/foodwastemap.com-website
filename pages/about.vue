@@ -5,14 +5,12 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li>
-              <nuxt-link :to="localePath('/')">{{
-                $t("pages.home")
-              }}</nuxt-link>
+              <a :href="localePath('/')">{{ $t("pages.home") }}</a>
             </li>
             <li class="is-active">
-              <nuxt-link :to="localePath('/about')" aria-current="page">{{
+              <a :href="localePath('/about')" aria-current="page">{{
                 $t("pages.about")
-              }}</nuxt-link>
+              }}</a>
             </li>
           </ul>
         </nav>
@@ -38,12 +36,12 @@ export default {
   async asyncData(context) {
     const currentPage = await bucket.getObject({
       slug: "about",
-      locale: context.app.i18n.localeProperties.iso,
+      locale: context.app.i18n.localeProperties.iso
     });
 
     return {
-      currentPage: currentPage.object,
+      currentPage: currentPage.object
     };
-  },
+  }
 };
 </script>

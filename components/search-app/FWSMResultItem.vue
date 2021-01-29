@@ -18,10 +18,10 @@
       </dd>
     </div>
     <div class="fwsm-search-app-results__action">
-      <nuxt-link
-        :to="localePath('/platform/profile/' + organization.organizationId)"
+      <a
+        :href="localePath('/platform/profile/' + organization.organizationId)"
         class="button is-primary is-light is-medium mb-2"
-        >{{ $t("searchApp.moreInfo") }}</nuxt-link
+        >{{ $t("searchApp.moreInfo") }}</a
       >
       <dd class="fwsm-search-app-results__meta">
         <small>
@@ -68,34 +68,34 @@
 <script>
 import { format } from "date-fns";
 import { enUS, nl } from "date-fns/locale";
-const locales = { en: enUS, nl }
+const locales = { en: enUS, nl };
 
 export default {
   name: "FWSMResultItem",
   props: {
     organization: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
-      sectors: [],
+      sectors: []
     };
   },
   async fetch() {
     const { sectors } = await this.$axios
       .$get("/api/sectors/all")
-      .then((res) => res);
+      .then(res => res);
     this.sectors = sectors;
   },
   computed: {
-    formatLastModified: function () {
+    formatLastModified: function() {
       return format(this.organization.modifiedOn, "d MMMM yyyy", {
-        locale: locales[this.$i18n.locale],
+        locale: locales[this.$i18n.locale]
       });
     },
-    formatOrgLocation: function () {
+    formatOrgLocation: function() {
       if (this.organization.address) {
         return (
           this.organization.address.city +
@@ -104,14 +104,14 @@ export default {
         );
       }
     },
-    formatSectorName: function () {
+    formatSectorName: function() {
       if (this.organization.subsectorId && this.sectors.length >= 1) {
         const match = this.sectors.find(
-          (sector) => sector.subsectorId === this.organization.subsectorId
+          sector => sector.subsectorId === this.organization.subsectorId
         );
         return match.subsector;
       }
-    },
-  },
+    }
+  }
 };
 </script>

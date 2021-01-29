@@ -5,31 +5,28 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li>
-              <nuxt-link :to="localePath('/')">{{
-                $t("pages.home")
-              }}</nuxt-link>
+              <a :href="localePath('/')">{{ $t("pages.home") }}</a>
             </li>
             <li>
-              <nuxt-link :to="localePath('/connections')" aria-current="page">{{
+              <a :href="localePath('/connections')" aria-current="page">{{
                 $t("pages.connections")
-              }}</nuxt-link>
+              }}</a>
             </li>
             <li>
-              <nuxt-link
-                :to="localePath(`/connections/${currentConnectionSlug}`)"
-                >{{ currentConnectionTitle }}</nuxt-link
-              >
+              <a :href="localePath(`/connections/${currentConnectionSlug}`)">{{
+                currentConnectionTitle
+              }}</a>
             </li>
 
             <li class="is-active">
-              <nuxt-link
-                :to="
+              <a
+                :href="
                   localePath(
                     `/connections/${currentConnectionSlug}/${currentPage.slug}`
                   )
                 "
                 aria-current="page"
-                >{{ currentPage.title }}</nuxt-link
+                >{{ currentPage.title }}</a
               >
             </li>
           </ul>
@@ -47,8 +44,8 @@
               <p class="menu-label">{{ currentConnectionTitle }}</p>
               <ul class="menu-list">
                 <li v-for="page in relatedPages" :key="page.slug">
-                  <nuxt-link
-                    :to="
+                  <a
+                    :href="
                       localePath(
                         '/connections/' +
                           currentConnectionSlug +
@@ -57,7 +54,7 @@
                       )
                     "
                     :class="{ 'is-active': page.slug === currentPage.slug }"
-                    >{{ page.title }}</nuxt-link
+                    >{{ page.title }}</a
                   >
                 </li>
               </ul>

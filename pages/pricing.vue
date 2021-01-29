@@ -5,14 +5,12 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li>
-              <nuxt-link :to="localePath('/')">{{
-                $t("pages.home")
-              }}</nuxt-link>
+              <a :href="localePath('/')">{{ $t("pages.home") }}</a>
             </li>
             <li class="is-active">
-              <nuxt-link :to="localePath('/pricing')" aria-current="page">{{
+              <a :href="localePath('/pricing')" aria-current="page">{{
                 $t("pages.pricing")
-              }}</nuxt-link>
+              }}</a>
             </li>
           </ul>
         </nav>
@@ -160,17 +158,17 @@ import bucket from "~/plugins/cosmic";
 import FwsmCallToAction from "~/components/FWSMCallToAction.vue";
 export default {
   components: {
-    FwsmCallToAction,
+    FwsmCallToAction
   },
   async asyncData(context) {
     const currentPage = await bucket.getObject({
       slug: "pricing",
-      locale: context.app.i18n.localeProperties.iso,
+      locale: context.app.i18n.localeProperties.iso
     });
 
     return {
-      currentPage: currentPage.object,
+      currentPage: currentPage.object
     };
-  },
+  }
 };
 </script>

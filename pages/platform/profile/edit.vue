@@ -2,12 +2,14 @@
   <div>
     <section class="section">
       <div class="container">
-        <nuxt-link
+        <a
           class="fwsm-search-app__back-link"
-          :to="
-            localePath(loggedInUser && '/platform/profile/' + loggedInUser.organizationId)
+          :href="
+            localePath(
+              loggedInUser && '/platform/profile/' + loggedInUser.organizationId
+            )
           "
-          >&#8592; Back to profile</nuxt-link
+          >&#8592; Back to profile</a
         >
         <div class="columns">
           <div class="column is-two-thirds">
@@ -38,7 +40,7 @@
                           class="button"
                           type="button"
                           :class="{
-                            'is-active': isActive.heading({ level: 1 }),
+                            'is-active': isActive.heading({ level: 1 })
                           }"
                           @click="commands.heading({ level: 1 })"
                         >
@@ -48,7 +50,7 @@
                           class="button"
                           type="button"
                           :class="{
-                            'is-active': isActive.heading({ level: 2 }),
+                            'is-active': isActive.heading({ level: 2 })
                           }"
                           @click="commands.heading({ level: 2 })"
                         >
@@ -145,11 +147,11 @@
                       <div class="select is-fullwidth">
                         <select v-model="country">
                           <option
-                          v-for="country in countryList"
-                          :key="country.alpha_2_code"
-                          :value="country.alpha_2_code"
-                          >{{ country.en_short_name }}</option
-                        >
+                            v-for="country in countryList"
+                            :key="country.alpha_2_code"
+                            :value="country.alpha_2_code"
+                            >{{ country.en_short_name }}</option
+                          >
                         </select>
                       </div>
                     </div>
@@ -205,7 +207,7 @@ import {
   Link,
   Strike,
   Underline,
-  History,
+  History
 } from "tiptap-extensions";
 import { mapGetters } from "vuex";
 
@@ -213,7 +215,7 @@ export default {
   middleware: "auth",
   components: {
     EditorContent,
-    EditorMenuBar,
+    EditorMenuBar
   },
   data() {
     return {
@@ -225,13 +227,13 @@ export default {
       address: this.$auth.user.address.address,
       postcode: this.$auth.user.address.postcode,
       city: this.$auth.user.address.city,
-      country: this.$auth.user.address.country,
+      country: this.$auth.user.address.country
     };
   },
   async asyncData(context) {
     const sectors = await context.$axios
       .get("/api/sectors/all")
-      .then((res) => res.data);
+      .then(res => res.data);
     return {
       ...sectors,
       countryList
@@ -255,12 +257,12 @@ export default {
         new Link(),
         new Strike(),
         new Underline(),
-        new History(),
+        new History()
       ],
       content: this.editor,
       onUpdate: ({ getHTML }) => {
         this.editorContent = getHTML();
-      },
+      }
     });
   },
   beforeDestroy() {
@@ -277,32 +279,32 @@ export default {
           city: this.city,
           country: this.country
         })
-        .then((res) => {
-          window.scrollTo(0,0);
+        .then(res => {
+          window.scrollTo(0, 0);
           this.success = true;
         })
         .catch(
-          (err) => {
+          err => {
             this.error = err.response.data.error;
           },
           {
-            Authorization: this.$auth.strategy.token.get(),
+            Authorization: this.$auth.strategy.token.get()
           }
         );
-    },
+    }
   },
   computed: {
     ...mapGetters(["isAuthenticated", "loggedInUser"]),
-    selectedSector: function () {
+    selectedSector: function() {
       if (
         this.$auth.user.subsectorId !== "" ||
         this.$auth.user.subsectorId !== null
       ) {
         return this.sectors.find(
-          (sector) => sector.subsectorId === this.$auth.user.subsectorId
+          sector => sector.subsectorId === this.$auth.user.subsectorId
         );
       }
-    },
-  },
+    }
+  }
 };
 </script>

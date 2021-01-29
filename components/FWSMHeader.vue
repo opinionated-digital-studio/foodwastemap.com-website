@@ -3,9 +3,9 @@
     <div class="container">
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <nuxt-link class="navbar-item" :to="localePath('/')">
+          <a class="navbar-item" :href="localePath('/')">
             <img id="logo" src="~/assets/images/logo.png" />
-          </nuxt-link>
+          </a>
           <a
             role="button"
             class="navbar-burger burger"
@@ -27,46 +27,54 @@
           :class="{ 'is-active': isActive }"
         >
           <div class="navbar-start">
-            <nuxt-link :to="localePath('/')" class="navbar-item">
+            <a :href="localePath('/')" class="navbar-item">
               {{ $t("pages.home") }}
-            </nuxt-link>
+            </a>
 
-            <nuxt-link :to="localePath('/connections')" class="navbar-item">
+            <a :href="localePath('/connections')" class="navbar-item">
               {{ $t("pages.connections") }}
-            </nuxt-link>
+            </a>
 
-            <nuxt-link :to="localePath('/platform')" class="navbar-item">
+            <a :href="localePath('/platform')" class="navbar-item">
               {{ $t("pages.platform") }}
-            </nuxt-link>
+            </a>
 
-            <nuxt-link v-if="!isAuthenticated" :to="localePath('/pricing')" class="navbar-item">
+            <a
+              v-if="!isAuthenticated"
+              :href="localePath('/pricing')"
+              class="navbar-item"
+            >
               {{ $t("pages.pricing") }}
-            </nuxt-link>
+            </a>
 
-            <nuxt-link :to="localePath('/about')" class="navbar-item">
+            <a :href="localePath('/about')" class="navbar-item">
               {{ $t("pages.about") }}
-            </nuxt-link>
+            </a>
           </div>
 
           <div class="navbar-end">
             <div class="navbar-item">
               <div v-if="isAuthenticated" class="buttons">
-                <nuxt-link
+                <a
                   class="button is-primary"
-                  :to="localePath('/platform/profile/' + loggedInUser.organizationId)"
+                  :href="
+                    localePath(
+                      '/platform/profile/' + loggedInUser.organizationId
+                    )
+                  "
                   >{{ $t("profile.myProfile") }}
-                </nuxt-link>
+                </a>
                 <a class="button is-danger" href="" @click="logout">
                   {{ $t("auth.signOut") }}
                 </a>
               </div>
               <div v-else class="buttons">
-                <nuxt-link :to="localePath('/sign-up')" class="button is-primary">
+                <a :href="localePath('/sign-up')" class="button is-primary">
                   <strong>{{ $t("auth.signUp") }}</strong>
-                </nuxt-link>
-                <nuxt-link :to="localePath('/sign-in')" class="button is-light">
+                </a>
+                <a :href="localePath('/sign-in')" class="button is-light">
                   {{ $t("auth.signIn") }}
-                </nuxt-link>
+                </a>
               </div>
             </div>
             <div class="navbar-item">
@@ -157,11 +165,11 @@ export default {
   name: "FWSMHeader",
   computed: {
     ...mapGetters(["isAuthenticated", "loggedInUser"]),
-    availableLocales: function () {
+    availableLocales: function() {
       return this.$i18n.locales.filter(
-        (locale) => locale.code !== this.currentLocale
+        locale => locale.code !== this.currentLocale
       );
-    },
+    }
   },
   data() {
     return {
@@ -177,10 +185,10 @@ export default {
       await this.$auth.logout();
     },
     setLocale(locale) {
-      this.currentLocale = locale
-      this.$i18n.setLocale(locale)
-      this.$i18n.setLocaleCookie(locale)
+      this.currentLocale = locale;
+      this.$i18n.setLocale(locale);
+      this.$i18n.setLocaleCookie(locale);
     }
-  },
+  }
 };
 </script>

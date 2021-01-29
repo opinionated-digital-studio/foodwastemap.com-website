@@ -2,8 +2,8 @@
   <div>
     <section class="section">
       <div class="container">
-        <nuxt-link class="fwsm-search-app__back-link" :to="localePath('/platform')"
-          >&#8592; {{ $t("profile.backToResults") }}</nuxt-link
+        <a class="fwsm-search-app__back-link" :href="localePath('/platform')"
+          >&#8592; {{ $t("profile.backToResults") }}</a
         >
         <div class="columns">
           <div class="column is-two-thirds">
@@ -37,13 +37,13 @@
               v-if="organization.email"
               :href="'mailto:' + organization.email"
               class="button is-primary"
-              >{{ $t('profile.sendEmail') }}</a
+              >{{ $t("profile.sendEmail") }}</a
             >
             <a
               v-if="authorizedToEdit"
               :href="'/platform/profile/edit'"
               class="button"
-              >{{ $t('profile.editProfile') }}</a
+              >{{ $t("profile.editProfile") }}</a
             >
           </div>
         </div>
@@ -84,32 +84,32 @@
 import { mapGetters } from "vuex";
 import { format } from "date-fns";
 import { enUS, nl } from "date-fns/locale";
-const locales = { en: enUS, nl }
+const locales = { en: enUS, nl };
 
 function capitalize(string) {
-  return string.replace(/\b\w/g, (c) => c.toUpperCase());
+  return string.replace(/\b\w/g, c => c.toUpperCase());
 }
 
 export default {
   async asyncData(context) {
     const profile = await context.$axios
       .get(`/api/organizations/oid/${context.params.organizationId}`)
-      .then((res) => res.data);
+      .then(res => res.data);
     return {
-      ...profile,
+      ...profile
     };
   },
   computed: {
     ...mapGetters(["isAuthenticated", "loggedInUser"]),
 
-    formatWebsite: function () {
+    formatWebsite: function() {
       if (this.organization.website) {
         if (!this.organization.website.match(/^[a-zA-Z]+:\/\//)) {
           return "http://" + this.organization.website;
         }
       }
     },
-    formatLocation: function () {
+    formatLocation: function() {
       if (this.organization.address) {
         const city = this.organization.address.city || "";
         const country = this.organization.address.country || "";
@@ -117,20 +117,20 @@ export default {
         return result;
       }
     },
-    modifiedOn: function () {
+    modifiedOn: function() {
       if (this.organization.modifiedOn) {
         const modifiedOn = new Date(this.organization.modifiedOn);
         const formatDate = format(modifiedOn, "dd MMMM, yyyy", {
-          locale: locales[this.$i18n.locale],
+          locale: locales[this.$i18n.locale]
         });
         return formatDate;
       }
     },
-    authorizedToEdit: function () {
+    authorizedToEdit: function() {
       if (this.loggedInUser && this.organization) {
         return this.loggedInUser.userId === this.organization.userId;
       }
-    },
-  },
+    }
+  }
 };
 </script>
