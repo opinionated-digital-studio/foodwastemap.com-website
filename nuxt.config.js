@@ -53,8 +53,35 @@ export default {
     "@nuxtjs/style-resources",
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
-    "@nuxtjs/proxy"
+    "@nuxtjs/proxy",
+    "nuxt-i18n"
   ],
+
+  i18n: {
+    locales: [
+      {
+        code: 'en',
+        iso: 'en-US',
+        file: 'en-US.js',
+        name: 'English'
+      },
+      {
+        code: 'nl',
+        iso: 'nl-NL',
+        file: 'nl-NL.js',
+        name: 'Nederlands'
+      }
+    ],
+    langDir: 'locales/',
+    lazy: true,
+    defaultLocale: 'en',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      alwaysRedirect: true,
+      onlyOnRoot: true,
+    }
+  },
 
   axios: {
     proxy: true

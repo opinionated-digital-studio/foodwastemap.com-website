@@ -5,12 +5,12 @@
         <div class="columns">
           <div class="column is-one-third">
             <div class="box">
-              <h1 class="title">Account aanmaken</h1>
+              <h1 class="title">{{ $t('auth.signUp') }}</h1>
               <div v-if="error" class="notification is-danger">{{ error }}</div>
               <form method="post" @submit.prevent="signUp">
                 <div class="field">
                   <label class="label">
-                    Naam
+                    {{ $t('user.name') }}
                     <input
                       class="input"
                       type="text"
@@ -22,7 +22,7 @@
 
                 <div class="field">
                   <label class="label">
-                    Emailadres
+                    {{ $t('user.email') }}
                     <input
                       class="input"
                       type="email"
@@ -34,7 +34,7 @@
 
                 <div class="field">
                   <label class="label">
-                    Bedrijfsnaam
+                    {{ $t('user.companyName') }}
                     <input
                       class="input"
                       type="text"
@@ -46,7 +46,7 @@
 
                 <div class="field">
                   <label class="label">
-                    Wachtwoord
+                    {{ $t('user.password') }}
                     <input
                       class="input"
                       type="password"
@@ -58,7 +58,7 @@
 
                 <div class="field">
                   <label class="label">
-                    Wachtwoord bevestigen
+                    {{ $t('user.verifyPassword') }}
                     <input
                       class="input"
                       type="password"
@@ -72,13 +72,8 @@
                   class="button is-primary is-medium mt-5 mb-4 is-fullwidth"
                   type="submit"
                 >
-                  Account aanmaken
+                  {{ $t('auth.signUp') }}
                 </button>
-                <small>
-                  Door je aan te melden ben je akkoord met onze gebruikersvoorwaarden en privacybeleid.
-                  <!-- Signing up signifies that you agree to the Terms of Service
-                  and our Privacy Policy. -->
-                </small>
               </form>
             </div>
           </div>
@@ -132,7 +127,6 @@ export default {
 
           this.$router.push("/platform/profile/edit");
         } catch (e) {
-          console.log(e)
           this.error = e.response.data.error;
         }
       }

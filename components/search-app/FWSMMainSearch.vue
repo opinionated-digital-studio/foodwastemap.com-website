@@ -9,7 +9,7 @@
               id="select-fwsm-sector"
               v-on:input="$emit('fwsm-sector-changed', $event.target.value)"
             >
-              <option value="">All sectors</option>
+              <option value="">{{ $t('searchApp.allSectors') }}</option>
               <option
                 v-for="fwsmSector in fwsmSectors"
                 :key="fwsmSector.subsectorId"
@@ -27,7 +27,7 @@
             class="input"
             name="companyName"
             type="text"
-            placeholder="Find a company"
+            :placeholder="$t('searchApp.searchCompanyName')"
             v-on:input="$emit('search-query-changed', $event.target.value)"
           />
           <span class="icon is-small is-left">
@@ -35,7 +35,7 @@
           </span>
         </div>
         <div class="control">
-          <button type="submit" class="button is-primary">Search</button>
+          <button type="submit" class="button is-primary">{{ $t('searchApp.search') }}</button>
         </div>
       </div>
     </form>

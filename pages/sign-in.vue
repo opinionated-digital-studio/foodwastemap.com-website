@@ -5,14 +5,14 @@
         <div class="columns">
           <div class="column is-one-third">
             <div class="box">
-              <h1 class="title">Inloggen</h1>
-              <p class="mb-5">Welkom terug bij FWSM</p>
+              <h1 class="title">{{ $t('auth.signIn') }}</h1>
+              <p class="mb-5">{{ $auth.welcomeBack }}</p>
 
               <div v-if="error" class="notification is-danger">{{ error }}</div>
               <form @submit.prevent="signIn" method="post">
                 <div class="field">
                   <label class="label">
-                    Emailadres
+                    {{ $t('user.email') }}
                     <input
                       class="input"
                       type="email"
@@ -25,7 +25,7 @@
 
                 <div class="field">
                   <label class="label">
-                    Wachtwoord
+                    {{ $t('user.password') }}
                     <input
                       class="input"
                       type="password"
@@ -39,7 +39,7 @@
                   class="button is-primary is-medium mt-5 mb-4 is-fullwidth"
                   type="submit"
                 >
-                  Inloggen
+                  {{ $t('auth.signIn') }}
                 </button>
               </form>
             </div>

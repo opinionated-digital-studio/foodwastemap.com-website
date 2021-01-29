@@ -18,10 +18,10 @@
       </dd>
     </div>
     <div class="fwsm-search-app-results__action">
-      <a
-        :href="'/platform/profile/' + organization.organizationId"
+      <nuxt-link
+        :to="localePath('/platform/profile/' + organization.organizationId)"
         class="button is-primary is-light is-medium mb-2"
-        >More info</a
+        >{{ $t("searchApp.moreInfo") }}</nuxt-link
       >
       <dd class="fwsm-search-app-results__meta">
         <small>
@@ -67,6 +67,8 @@
 
 <script>
 import { format } from "date-fns";
+import { enUS, nl } from "date-fns/locale";
+const locales = { en: enUS, nl }
 
 export default {
   name: "FWSMResultItem",
@@ -76,20 +78,22 @@ export default {
       required: true,
     },
   },
-  data(){
+  data() {
     return {
-      sectors: []
-    }
+      sectors: [],
+    };
   },
-  async fetch () {
+  async fetch() {
     const { sectors } = await this.$axios
       .$get("/api/sectors/all")
-      .then(res => res)
-    this.sectors = sectors
+      .then((res) => res);
+    this.sectors = sectors;
   },
   computed: {
     formatLastModified: function () {
-      return format(this.organization.modifiedOn, "d MMMM yyyy");
+      return format(this.organization.modifiedOn, "d MMMM yyyy", {
+        locale: locales[this.$i18n.locale],
+      });
     },
     formatOrgLocation: function () {
       if (this.organization.address) {
@@ -102,8 +106,10 @@ export default {
     },
     formatSectorName: function () {
       if (this.organization.subsectorId && this.sectors.length >= 1) {
-        const match = this.sectors.find(sector => sector.subsectorId === this.organization.subsectorId )
-        return match.subsector
+        const match = this.sectors.find(
+          (sector) => sector.subsectorId === this.organization.subsectorId
+        );
+        return match.subsector;
       }
     },
   },

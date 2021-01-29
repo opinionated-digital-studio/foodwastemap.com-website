@@ -3,9 +3,9 @@
     <div class="container">
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" href="/">
+          <nuxt-link class="navbar-item" :to="localePath('/')">
             <img id="logo" src="~/assets/images/logo.png" />
-          </a>
+          </nuxt-link>
           <a
             role="button"
             class="navbar-burger burger"
@@ -27,44 +27,46 @@
           :class="{ 'is-active': isActive }"
         >
           <div class="navbar-start">
-            <a href="/" class="navbar-item">
-              Home
-            </a>
+            <nuxt-link :to="localePath('/')" class="navbar-item">
+              {{ $t("pages.home") }}
+            </nuxt-link>
 
-            <a href="/connections" class="navbar-item">
-              Thema's
-            </a>
+            <nuxt-link :to="localePath('/connections')" class="navbar-item">
+              {{ $t("pages.connections") }}
+            </nuxt-link>
 
-            <a href="/platform" class="navbar-item">
-              Platform
-            </a>
+            <nuxt-link :to="localePath('/platform')" class="navbar-item">
+              {{ $t("pages.platform") }}
+            </nuxt-link>
 
-            <a v-if="!isAuthenticated" href="/pricing" class="navbar-item">
-              Prijzen
-            </a>
+            <nuxt-link v-if="!isAuthenticated" :to="localePath('/pricing')" class="navbar-item">
+              {{ $t("pages.pricing") }}
+            </nuxt-link>
 
-            <a href="/about" class="navbar-item">
-              Over ons
-            </a>
+            <nuxt-link :to="localePath('/about')" class="navbar-item">
+              {{ $t("pages.about") }}
+            </nuxt-link>
           </div>
 
           <div class="navbar-end">
             <div class="navbar-item">
               <div v-if="isAuthenticated" class="buttons">
-                <a
+                <nuxt-link
                   class="button is-primary"
-                  :href="'/platform/profile/' + loggedInUser.organizationId"
-                  >Mijn profiel</a
-                >
-                <a class="button is-danger" href="" @click="logout">Uitloggen</a>
+                  :to="localePath('/platform/profile/' + loggedInUser.organizationId)"
+                  >{{ $t("profile.myProfile") }}
+                </nuxt-link>
+                <a class="button is-danger" href="" @click="logout">
+                  {{ $t("auth.signOut") }}
+                </a>
               </div>
               <div v-else class="buttons">
-                <a href="/sign-up" class="button is-primary">
-                  <strong>Account aanmaken</strong>
-                </a>
-                <a href="/sign-in" class="button is-light">
-                  Inloggen
-                </a>
+                <nuxt-link :to="localePath('/sign-up')" class="button is-primary">
+                  <strong>{{ $t("auth.signUp") }}</strong>
+                </nuxt-link>
+                <nuxt-link :to="localePath('/sign-in')" class="button is-light">
+                  {{ $t("auth.signIn") }}
+                </nuxt-link>
               </div>
             </div>
             <div class="navbar-item">
@@ -90,6 +92,36 @@
                 aria-label="LinkedIn"
                 ><i class="fab fa-linkedin-in"></i
               ></a>
+            </div>
+            <div class="navbar-item">
+              <div class="dropdown is-hoverable">
+                <div class="dropdown-trigger">
+                  <button
+                    class="button is-small"
+                    aria-haspopup="true"
+                    aria-controls="language-switcher"
+                  >
+                    <span>{{ this.$i18n.localeProperties.name }}</span>
+                    <span class="icon is-small">
+                      <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                  </button>
+                </div>
+                <div class="dropdown-menu" id="language-switcher" role="menu">
+                  <div class="dropdown-content">
+                    <div class="dropdown-item">
+                      <a
+                        v-for="locale in availableLocales"
+                        :key="locale.code"
+                        role="button"
+                        href="#"
+                        @click.prevent.stop="setLocale(locale.code)"
+                        >{{ locale.name }}</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -124,11 +156,17 @@ import { mapGetters } from "vuex";
 export default {
   name: "FWSMHeader",
   computed: {
-    ...mapGetters(["isAuthenticated", "loggedInUser"])
+    ...mapGetters(["isAuthenticated", "loggedInUser"]),
+    availableLocales: function () {
+      return this.$i18n.locales.filter(
+        (locale) => locale.code !== this.currentLocale
+      );
+    },
   },
   data() {
     return {
-      isActive: false
+      isActive: false,
+      currentLocale: this.$i18n.getLocaleCookie()
     };
   },
   methods: {
@@ -137,7 +175,12 @@ export default {
     },
     async logout() {
       await this.$auth.logout();
+    },
+    setLocale(locale) {
+      this.currentLocale = locale
+      this.$i18n.setLocale(locale)
+      this.$i18n.setLocaleCookie(locale)
     }
-  }
+  },
 };
 </script>

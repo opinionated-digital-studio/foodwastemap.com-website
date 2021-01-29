@@ -4,9 +4,9 @@
       <div class="hero-body has-text-centered">
         <div class="container">
           <h1 class="title">Food Waste Solution Map</h1>
-          <h2 class="subtitle">Mapping Value in Food Chain Business</h2>
+          <h2 class="subtitle">{{ $t('home.slogan1') }}</h2>
 
-          <form method="GET" class="hero-search-form" action="/platform">
+          <form method="GET" class="hero-search-form" :action="searchGETPath">
             <div class="hero-search">
               <div class="field has-addons">
                 <div class="control is-expanded has-icons-left">
@@ -14,7 +14,7 @@
                     class="hero-search__input input is-full-width is-medium"
                     type="text"
                     name="company-name"
-                    placeholder="Bedrijfsnaam zoeken"
+                    :placeholder="$t('searchApp.searchCompanyName')"
                   />
                   <span class="icon is-medium is-left">
                     <i class="fas fa-search"></i>
@@ -24,7 +24,7 @@
                   <a
                     class="hero-search__search-button button is-light is-medium"
                   >
-                    Zoek
+                    {{ $t('searchApp.search') }}
                   </a>
                 </div>
               </div>
@@ -122,5 +122,10 @@
 <script>
 export default {
   name: "FWSMHero",
+  props: {
+    searchGETPath: {
+      type: String, required: true
+    }
+  }
 };
 </script>

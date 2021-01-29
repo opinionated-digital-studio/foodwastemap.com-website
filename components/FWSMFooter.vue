@@ -4,9 +4,9 @@
       <div class="container">
         <div class="columns">
           <div class="column is-half">
-            <a href="/"
+            <nuxt-link :to="localePath('/')"
               ><img class="fwsm-footer__logo" src="~/assets/images/logo.png"
-            /></a>
+            /></nuxt-link>
           </div>
           <div class="column is-one-quarter">
             <h4 class="has-text-weight-bold is-size-6 fwsm-footer__heading">
@@ -14,21 +14,21 @@
             </h4>
             <ul class="fwsm-footer__nav is-size-6">
               <li class="fwsm-footer__nav-item">
-                <a href="/" class="fwsm-footer__nav-link">Home</a>
+                <nuxt-link :to="localePath('/')" class="fwsm-footer__nav-link">{{ $t('pages.home') }}</nuxt-link>
               </li>
               <li class="fwsm-footer__nav-item">
-                <a href="/connections" class="fwsm-footer__nav-link"
-                  >Connections</a
+                <nuxt-link :to="localePath('/connections')" class="fwsm-footer__nav-link"
+                  >{{ $t('pages.connections') }}</nuxt-link
                 >
               </li>
               <li class="fwsm-footer__nav-item">
-                <a href="/platform" class="fwsm-footer__nav-link">Platform</a>
+                <nuxt-link :to="localePath('/platform')" class="fwsm-footer__nav-link">{{ $t('pages.platform') }}</nuxt-link>
               </li>
               <li class="fwsm-footer__nav-item">
-                <a href="/pricing" class="fwsm-footer__nav-link">Pricing</a>
+                <nuxt-link :to="localePath('/pricing')" class="fwsm-footer__nav-link">{{ $t('pages.pricing') }}</nuxt-link>
               </li>
               <li class="fwsm-footer__nav-item">
-                <a href="/about" class="fwsm-footer__nav-link">About</a>
+                <nuxt-link :to="localePath('/about')" class="fwsm-footer__nav-link">{{ $t('pages.about') }}</nuxt-link>
               </li>
             </ul>
           </div>

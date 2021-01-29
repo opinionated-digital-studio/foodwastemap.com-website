@@ -2,12 +2,12 @@
   <div>
     <section class="section">
       <div class="container">
-        <a
+        <nuxt-link
           class="fwsm-search-app__back-link"
-          :href="
-            loggedInUser && '/platform/profile/' + loggedInUser.organizationId
+          :to="
+            localePath(loggedInUser && '/platform/profile/' + loggedInUser.organizationId)
           "
-          >&#8592; Back to profile</a
+          >&#8592; Back to profile</nuxt-link
         >
         <div class="columns">
           <div class="column is-two-thirds">

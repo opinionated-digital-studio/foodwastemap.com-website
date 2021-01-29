@@ -4,24 +4,24 @@
       <div class="container">
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
-            <li><a href="/">Home</a></li>
+            <li>
+              <nuxt-link :to="localePath('/')">{{
+                $t("pages.home")
+              }}</nuxt-link>
+            </li>
             <li class="is-active">
-              <a href="/pricing" aria-current="page">Prijzen</a>
+              <nuxt-link :to="localePath('/pricing')" aria-current="page">{{
+                $t("pages.pricing")
+              }}</nuxt-link>
             </li>
           </ul>
         </nav>
 
-        <h1 class="title is-1">Prijzen</h1>
+        <h1 class="title is-1">{{ currentPage.title }}</h1>
         <div class="columns">
           <div class="column is-two-thirds">
-            <img id="free-promo" class="mb-5" src="~/assets/images/free-promo.png" alt="t/m 31 maart 1 jaar een GRATIS accountpagina">
-            <br/>
-            <p class="subtitle pb-5 mb-5">
-              Met de ‘Food Waste Solutions Map' willen wij bedrijven,
-              instanties, universiteiten/opleidingen, retail en consumenten
-              uitnodigen om te indiceren in welk stadium (onder welke sector)
-              van de map hun drijfveer/prioriteit/product of belang ligt!
-            </p>
+            <p class="subtitle pb-5 mb-5">{{ currentPage.metadata.lead }}</p>
+            <div class="content" v-html="currentPage.content"></div>
           </div>
         </div>
 
@@ -106,32 +106,6 @@
             </div>
           </div>
         </div> -->
-
-        <h2 class="title">Alle voordelen op een rij</h2>
-        <div class="content">
-          <ul>
-            <li>
-              Zoek naar exposure, netwerken of nieuwe oplossingen en kansen voor
-              uw bedrijf.
-            </li>
-            <li>
-              Een eigen accountpagina, waarop teksten en afbeeldingen ten alle tijden kunnen worden aangepast.
-            </li>
-            <li>Maak connecties.</li>
-            <li>
-              Kijk waar uw innovatie aansluit bij andere actoren in de
-              voedselketen.
-            </li>
-            <li>Toon het winstgevend karakter van uw product.</li>
-            <li>
-              Maak uw activiteit zichtbaar in het bos van oplossingen voor
-              voedselverspilling en voedselverlies.
-            </li>
-            <li>Toon het commitment van uw bedrijf.</li>
-            <li>Toon de positie van uw bedrijf in de voedselketen.</li>
-            <li>Gebruik het FWSM netwerk om nieuwe klanten te vinden.</li>
-          </ul>
-        </div>
       </div>
     </section>
     <FwsmCallToAction />
@@ -182,11 +156,21 @@
 </style>
 
 <script>
-import Vue from "vue";
+import bucket from "~/plugins/cosmic";
 import FwsmCallToAction from "~/components/FWSMCallToAction.vue";
 export default {
   components: {
-    FwsmCallToAction
-  }
+    FwsmCallToAction,
+  },
+  async asyncData(context) {
+    const currentPage = await bucket.getObject({
+      slug: "pricing",
+      locale: context.app.i18n.localeProperties.iso,
+    });
+
+    return {
+      currentPage: currentPage.object,
+    };
+  },
 };
 </script>

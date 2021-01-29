@@ -3,10 +3,10 @@
     <div class="hero-body">
       <div class="container">
         <h3 class="title is-2">
-          Put your organization on the map
+          {{ $t('cta.register.title') }}
         </h3>
-        <a href="/sign-up" class="button is-white">Maak een account aan</a>
-        <a href="mailto:mail@foodwastemap.com" class="button is-white is-outlined">Contact us</a>
+        <a href="/sign-up" class="button is-white">{{ $t('auth.signUp') }}</a>
+        <a href="mailto:mail@foodwastemap.com" class="button is-white is-outlined">{{ $t('cta.register.action') }}</a>
       </div>
     </div>
   </section>

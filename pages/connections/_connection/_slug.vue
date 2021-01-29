@@ -4,22 +4,41 @@
       <div class="container">
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/connections">Thema's</a></li>
             <li>
-              <a :href="`/connections/${currentConnectionSlug}`">{{
-                currentConnectionTitle
-              }}</a>
+              <nuxt-link :to="localePath('/')">{{
+                $t("pages.home")
+              }}</nuxt-link>
+            </li>
+            <li>
+              <nuxt-link :to="localePath('/connections')" aria-current="page">{{
+                $t("pages.connections")
+              }}</nuxt-link>
+            </li>
+            <li>
+              <nuxt-link
+                :to="localePath(`/connections/${currentConnectionSlug}`)"
+                >{{ currentConnectionTitle }}</nuxt-link
+              >
+            </li>
+
             <li class="is-active">
-              <a :href="`/connections/${currentConnectionSlug}/${currentPage.slug}`" aria-current="page">{{
-                currentPage.title
-              }}</a>
+              <nuxt-link
+                :to="
+                  localePath(
+                    `/connections/${currentConnectionSlug}/${currentPage.slug}`
+                  )
+                "
+                aria-current="page"
+                >{{ currentPage.title }}</nuxt-link
+              >
             </li>
           </ul>
         </nav>
         <div class="columns">
           <div class="column is-two-thirds">
-            <span class="is-size-4 mb-3 has-text-grey">{{currentConnectionTitle}}</span>
+            <span class="is-size-4 mb-3 has-text-grey">{{
+              currentConnectionTitle
+            }}</span>
             <h2 class="title is-2">{{ currentPage.title }}</h2>
             <div class="content" v-html="currentPage.content"></div>
           </div>
@@ -28,10 +47,17 @@
               <p class="menu-label">{{ currentConnectionTitle }}</p>
               <ul class="menu-list">
                 <li v-for="page in relatedPages" :key="page.slug">
-                  <a
-                    :href="'/connections/' + currentConnectionSlug + '/' + page.slug"
+                  <nuxt-link
+                    :to="
+                      localePath(
+                        '/connections/' +
+                          currentConnectionSlug +
+                          '/' +
+                          page.slug
+                      )
+                    "
                     :class="{ 'is-active': page.slug === currentPage.slug }"
-                    >{{ page.title }}</a
+                    >{{ page.title }}</nuxt-link
                   >
                 </li>
               </ul>
@@ -45,15 +71,6 @@
 </template>
 
 <script>
-function titleize(slug) {
-  var words = slug.split("-");
-  return words
-    .map(function (word) {
-      return word.charAt(0).toUpperCase() + word.substring(1).toLowerCase();
-    })
-    .join(" ");
-}
-
 import bucket from "~/plugins/cosmic";
 import FWSMCallToAction from "~/components/FWSMCallToAction.vue";
 export default {
@@ -61,38 +78,50 @@ export default {
     const currentPage = await bucket.getObject({
       slug: context.params.slug,
       props: "title,content,slug",
+      locale: context.app.i18n.localeProperties.iso
     });
     const relatedPages = await bucket.getObjects({
       type: "segments",
-      sort: "title",
+      props: "title,slug",
       metadata: {
-        connection: context.params.connection.charAt(0).toUpperCase() + context.params.connection.slice(1)
-      }
+        connection:
+          context.params.connection.charAt(0).toUpperCase() +
+          context.params.connection.slice(1)
+      },
+      locale: context.app.i18n.localeProperties.iso
     });
     return {
       currentPage: currentPage.object,
-      relatedPages: relatedPages.objects,
+      relatedPages: relatedPages.objects.sort(function(a, b) {
+        if (a.slug < b.slug) {
+          return -1;
+        }
+        if (a.slug > b.slug) {
+          return 1;
+        }
+        return 0;
+      }),
       currentConnectionSlug: context.params.connection
     };
   },
   computed: {
-    currentConnectionTitle: function () {
+    currentConnectionTitle: function() {
       switch (this.currentConnectionSlug) {
         case "production":
           return "Production and post harvesting";
         case "processing":
-          return "Processing"
+          return "Processing";
         case "packaging":
-          return "Packaging, storage and ripening"
+          return "Packaging, storage and ripening";
         case "distribution":
-          return "Distribution"
+          return "Distribution";
         case "retail":
-          return "Retail"
+          return "Retail";
       }
     }
   },
   components: {
-    FWSMCallToAction,
-  },
+    FWSMCallToAction
+  }
 };
 </script>

@@ -4,9 +4,9 @@
       <div class="container">
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/">{{ $t('pages.home') }}</a></li>
             <li class="is-active">
-              <a href="/platform" aria-current="page">Platform</a>
+              <a href="/platform" aria-current="page">{{ $t('pages.platform') }}</a>
             </li>
           </ul>
         </nav>
@@ -14,9 +14,9 @@
         <div class="fwsm-search-app">
           <div class="columns mb-5">
             <div class="column is-one-third">
-              <h1 class="title is-2 mb-1">Find companies</h1>
+              <h1 class="title is-2 mb-1">{{ $t('searchApp.title') }}</h1>
               <span class="fwsm-search-app__label--found"
-                >{{ numberOfOrgsFound }} organization(s) found</span
+                >{{ numberOfOrgsFound }} {{ $t('searchApp.numberOfCompaniesFound') }}</span
               >
             </div>
             <div class="column">
@@ -147,7 +147,6 @@ export default {
       this.isLoading = false;
     },
     getSearchQueryData: function (e) {
-      console.log(e);
       this.searchOptions.companyNameQuery = e;
     },
     getFwsmSectorQueryData: function (e) {
