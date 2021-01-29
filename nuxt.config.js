@@ -91,6 +91,11 @@ export default {
     "/api": { target: process.env.FWSM_API_URL, pathRewrite: { "^/api": "" } }
   },
 
+  env: {
+    BUCKET_SLUG: process.env.BUCKET_SLUG,
+    READ_KEY: process.env.READ_KEY
+  },
+
   auth: {
     strategies: {
       local: {
