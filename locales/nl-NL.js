@@ -1,6 +1,7 @@
 export default {
   common: {
-    readMore: 'Lees meer'
+    readMore: 'Lees meer',
+    postedOn: 'Geplaatst op'
   },
   auth: {
     signUp: 'Account aanmaken',
@@ -27,7 +28,8 @@ export default {
     connections: "Thema's",
     platform: 'Platform',
     pricing: 'Prijzen',
-    about: 'Over ons'
+    about: 'Over ons',
+    news: 'Uitgelicht'
   },
   home: {
     slogan1: "Mapping value in food chain business",

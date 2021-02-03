@@ -27,10 +27,6 @@
           :class="{ 'is-active': isActive }"
         >
           <div class="navbar-start">
-            <a :href="localePath('/')" class="navbar-item">
-              {{ $t("pages.home") }}
-            </a>
-
             <a :href="localePath('/connections')" class="navbar-item">
               {{ $t("pages.connections") }}
             </a>
@@ -49,6 +45,10 @@
 
             <a :href="localePath('/about')" class="navbar-item">
               {{ $t("pages.about") }}
+            </a>
+
+            <a :href="localePath('/news')" class="navbar-item">
+              {{ $t("pages.news") }}
             </a>
           </div>
 

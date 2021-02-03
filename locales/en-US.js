@@ -1,6 +1,7 @@
 export default {
   common: {
-    readMore: 'Read more'
+    readMore: 'Read more',
+    postedOn: 'Posted on'
   },
   auth: {
     signUp: 'Sign up',
@@ -27,7 +28,8 @@ export default {
     connections: 'Connections',
     platform: 'Platform',
     pricing: 'Pricing',
-    about: 'About'
+    about: 'About',
+    news: 'Highlighted'
   },
   home: {
     slogan1: "Mapping value in food chain business",

@@ -44,6 +44,11 @@
                   $t("pages.about")
                 }}</a>
               </li>
+              <li class="fwsm-footer__nav-item">
+                <a :href="localePath('/news')" class="fwsm-footer__nav-link">{{
+                  $t("pages.news")
+                }}</a>
+              </li>
             </ul>
           </div>
           <div class="column">
