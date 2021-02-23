@@ -20,6 +20,36 @@
             </div>
             <div v-if="error" class="notification is-danger">{{ error }}</div>
             <form method="post" @submit.prevent="makeChanges">
+              <h2 class="title is-4">Profile picture</h2>
+              <div class="mb-4">
+                <figure class="image is-128x128 fwsm-search-app__company-image">
+                  <img v-if="profilePicture" :src="profilePicture" />
+                  <span v-else>No profile picture set</span>
+                </figure>
+
+                <div class="file has-name mt-5">
+                  <label class="file-label">
+                    <input
+                      class="file-input"
+                      type="file"
+                      name="avatar"
+                      @change="handleFileChange"
+                    />
+                    <span class="file-cta">
+                      <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                      </span>
+                      <span class="file-label">
+                        Choose a file…
+                      </span>
+                    </span>
+                    <span class="file-name">
+                      {{ profilePictureName }}
+                    </span>
+                  </label>
+                </div>
+              </div>
+
               <h2 class="title is-4">Edit profile text</h2>
               <div class="mb-4">
                 <div class="editor box">
@@ -176,6 +206,17 @@
   margin-bottom: 1.5rem;
 }
 
+.fwsm-search-app__company-image {
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+  }
+}
+
 .editor {
   margin-bottom: 4rem;
   &__bar {
@@ -227,7 +268,10 @@ export default {
       address: this.$auth.user.address.address,
       postcode: this.$auth.user.address.postcode,
       city: this.$auth.user.address.city,
-      country: this.$auth.user.address.country
+      country: this.$auth.user.address.country,
+      profilePicture: this.$auth.user.profilePicture,
+      uploadedProfilePicture: null,
+      profilePictureName: "Upload a profile picture"
     };
   },
   async asyncData(context) {
@@ -269,28 +313,43 @@ export default {
     this.editor.destroy();
   },
   methods: {
+    handleFileChange(e) {
+      this.uploadedProfilePicture = e.target.files[0];
+      this.profilePictureName = e.target.files[0].name;
+    },
     async makeChanges() {
+      const rawFormData = {
+        text: this.editorContent,
+        subsectorId: this.selectedFwsmSector,
+        address: this.address,
+        postcode: this.postcode,
+        city: this.city,
+        country: this.country,
+        avatar: this.uploadedProfilePicture ? this.uploadedProfilePicture : null
+      };
+
+      const formData = new FormData();
+
+      Object.keys(rawFormData).forEach(key =>
+        formData.append(key, rawFormData[key])
+      );
+      for (var pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+
       await this.$axios
-        .$post("/api/organizations/edit", {
-          text: this.editorContent,
-          subsectorId: this.selectedFwsmSector,
-          address: this.address,
-          postcode: this.postcode,
-          city: this.city,
-          country: this.country
+        .$post("/api/organizations/edit", formData, {
+          headers: {
+            Authorization: this.$auth.strategy.token.get()
+          }
         })
         .then(res => {
           window.scrollTo(0, 0);
           this.success = true;
         })
-        .catch(
-          err => {
-            this.error = err.response.data.error;
-          },
-          {
-            Authorization: this.$auth.strategy.token.get()
-          }
-        );
+        .catch(err => {
+          this.error = err.response.data.error;
+        });
     }
   },
   computed: {

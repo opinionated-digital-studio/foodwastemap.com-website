@@ -8,7 +8,12 @@
         <div class="columns">
           <div class="column is-two-thirds">
             <div class="fwsm-search-app__company-info">
-              <div class="fwsm-search-app__company-image"></div>
+              <figure class="image is-128x128 fwsm-search-app__company-image">
+                <img
+                  v-if="organization.profilePicture"
+                  :src="organization.profilePicture"
+                />
+              </figure>
               <div class="fwsm-search-app__company-details">
                 <h1 class="title is-2 mb-2">{{ organization.companyName }}</h1>
                 <div
@@ -73,9 +78,14 @@
   }
   &__company-image {
     margin-right: 2rem;
-    background-color: $grey-lighter;
-    height: 160px;
-    width: 160px;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+    }
   }
 }
 </style>
