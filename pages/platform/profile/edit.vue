@@ -51,6 +51,10 @@
               </div>
 
               <h2 class="title is-4">Edit profile text</h2>
+              <p>
+                You can add images by dragging and dropping an image from your
+                file browser.
+              </p>
               <div class="mb-4">
                 <div class="editor box">
                   <no-ssr>
@@ -201,6 +205,10 @@
 </template>
 
 <style lang="scss">
+.editor__body {
+  min-height: 300px;
+}
+
 .fwsm-search-app__back-link {
   display: block;
   margin-bottom: 1.5rem;
@@ -251,6 +259,7 @@ import {
   History
 } from "tiptap-extensions";
 import { mapGetters } from "vuex";
+import ImageDrop from "~/plugins/image";
 
 export default {
   middleware: "auth",
@@ -287,16 +296,15 @@ export default {
     this.editor = new Editor({
       extensions: [
         new Blockquote(),
-        new CodeBlock(),
         new HardBreak(),
         new Heading({ levels: [1, 2, 3] }),
         new BulletList(),
         new OrderedList(),
         new ListItem(),
+        new ImageDrop(null, null, this.upload),
         new TodoItem(),
         new TodoList(),
         new Bold(),
-        new Code(),
         new Italic(),
         new Link(),
         new Strike(),
@@ -313,6 +321,21 @@ export default {
     this.editor.destroy();
   },
   methods: {
+    async upload(file) {
+      let formData = new FormData();
+      formData.append("image", file);
+      const headers = { "Content-Type": "multipart/form-data" };
+      const response = await this.$axios.$post(
+        "/api/organizations/image",
+        formData,
+        {
+          headers: {
+            Authorization: this.$auth.strategy.token.get()
+          }
+        }
+      );
+      return response.src;
+    },
     handleFileChange(e) {
       this.uploadedProfilePicture = e.target.files[0];
       this.profilePictureName = e.target.files[0].name;
@@ -333,9 +356,6 @@ export default {
       Object.keys(rawFormData).forEach(key =>
         formData.append(key, rawFormData[key])
       );
-      for (var pair of formData.entries()) {
-        console.log(pair[0] + ", " + pair[1]);
-      }
 
       await this.$axios
         .$post("/api/organizations/edit", formData, {
