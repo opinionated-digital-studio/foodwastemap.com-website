@@ -107,7 +107,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { countryList } from "kbrinl-lists";
+import { countryList } from "kbrinl-open-data";
 
 export default {
   async asyncData(context) {

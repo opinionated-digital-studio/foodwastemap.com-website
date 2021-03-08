@@ -238,7 +238,7 @@
 </style>
 
 <script>
-import { countryList } from "kbrinl-lists";
+import { countryList } from "kbrinl-open-data";
 import { Editor, EditorContent, EditorMenuBar } from "tiptap";
 import {
   Blockquote,
