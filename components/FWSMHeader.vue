@@ -95,7 +95,7 @@
             </div>
             <div class="navbar-item">
               <a
-                href="https://www.linkedin.com/in/irinatskiti/?originalSubdomain=nl"
+                href="https://nl.linkedin.com/company/in-me"
                 target="__blank"
                 aria-label="LinkedIn"
                 ><i class="fab fa-linkedin-in"></i
