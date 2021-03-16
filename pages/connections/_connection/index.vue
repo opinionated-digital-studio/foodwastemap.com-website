@@ -44,7 +44,12 @@
                 <li v-for="page in relatedPages" :key="page.slug">
                   <a
                     :href="
-                      '/connections/' + currentConnectionSlug + '/' + page.slug
+                      localePath(
+                        '/connections/' +
+                          currentConnectionSlug +
+                          '/' +
+                          page.slug
+                      )
                     "
                     :class="{ 'is-active': page.slug === currentPage.slug }"
                     >{{ page.title }}</a
