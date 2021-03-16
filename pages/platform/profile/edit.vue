@@ -53,7 +53,7 @@
               <h2 class="title is-4">Edit profile text</h2>
               <p>
                 You can add images by dragging and dropping an image from your
-                file browser.
+                file browser (max. 1MB per image).
               </p>
               <div class="mb-4">
                 <div class="editor box">
