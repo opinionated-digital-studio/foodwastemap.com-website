@@ -70,6 +70,12 @@ export default {
         iso: 'nl-NL',
         file: 'nl-NL.js',
         name: 'Nederlands'
+      },
+      {
+        code: 'ru',
+        iso: 'ru-RU',
+        file: 'ru-RU.js',
+        name: 'русский'
       }
     ],
     langDir: 'locales/',

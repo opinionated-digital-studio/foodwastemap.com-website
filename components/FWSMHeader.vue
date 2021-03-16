@@ -117,10 +117,12 @@
                 </div>
                 <div class="dropdown-menu" id="language-switcher" role="menu">
                   <div class="dropdown-content">
-                    <div class="dropdown-item">
+                    <div
+                      v-for="locale in availableLocales"
+                      :key="locale.code"
+                      class="dropdown-item"
+                    >
                       <a
-                        v-for="locale in availableLocales"
-                        :key="locale.code"
                         role="button"
                         href="#"
                         @click.prevent.stop="setLocale(locale.code)"

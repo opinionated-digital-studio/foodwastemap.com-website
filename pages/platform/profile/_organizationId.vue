@@ -46,7 +46,7 @@
             >
             <a
               v-if="authorizedToEdit"
-              :href="'/platform/profile/edit'"
+              :href="localePath('/platform/profile/edit')"
               class="button"
               >{{ $t("profile.editProfile") }}</a
             >
