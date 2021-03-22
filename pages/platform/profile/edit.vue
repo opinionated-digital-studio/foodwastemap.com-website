@@ -205,10 +205,6 @@
 </template>
 
 <style lang="scss">
-.editor__body {
-  min-height: 300px;
-}
-
 .fwsm-search-app__back-link {
   display: block;
   margin-bottom: 1.5rem;
@@ -270,7 +266,7 @@ export default {
   data() {
     return {
       editor: this.$auth.user.text,
-      editorContent: null,
+      editorContent: "",
       success: null,
       error: null,
       selectedFwsmSector: this.$auth.user.subsectorId || null,
@@ -341,6 +337,12 @@ export default {
       this.profilePictureName = e.target.files[0].name;
     },
     async makeChanges() {
+      if (!this.selectedFwsmSector) {
+        window.scrollTo(0, 0);
+        this.error = "You must choose a sector";
+        return;
+      }
+
       const rawFormData = {
         text: this.editorContent,
         subsectorId: this.selectedFwsmSector,
@@ -366,6 +368,7 @@ export default {
         .then(res => {
           window.scrollTo(0, 0);
           this.success = true;
+          this.error = false;
         })
         .catch(err => {
           this.error = err.response.data.error;
