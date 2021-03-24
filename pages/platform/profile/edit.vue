@@ -11,29 +11,34 @@
           "
           >&#8592; Back to profile</a
         >
+      </div>
+      <FWSMImageUploadModal
+        ref="imageUploadModal"
+        @imageUploaded="addCommand"
+      />
+      <div class="container">
         <div class="columns">
           <div class="column is-two-thirds">
-            <h1 class="title is-1">Edit profile</h1>
-
+            <title class="is-1">Edit profile</title>
             <div v-if="success" class="notification is-success">
-              Your profile changes have been saved successfully.
+              {{ success }}
             </div>
             <div v-if="error" class="notification is-danger">{{ error }}</div>
-            <form method="post" @submit.prevent="makeChanges">
+
+            <form method="post" @submit.prevent="saveChanges">
               <h2 class="title is-4">Profile picture</h2>
-              <div class="mb-4">
+              <div class="box">
                 <figure class="image is-128x128 fwsm-search-app__company-image">
                   <img v-if="profilePicture" :src="profilePicture" />
                   <span v-else>No profile picture set</span>
                 </figure>
-
-                <div class="file has-name mt-5">
+                <div class="file has-name">
                   <label class="file-label">
                     <input
                       class="file-input"
                       type="file"
                       name="avatar"
-                      @change="handleFileChange"
+                      @change="handleProfilePictureChange"
                     />
                     <span class="file-cta">
                       <span class="file-icon">
@@ -43,26 +48,20 @@
                         Choose a file…
                       </span>
                     </span>
-                    <span class="file-name">
-                      {{ profilePictureName }}
-                    </span>
+                    <span class="file-name">{{ profilePictureFileName }}</span>
                   </label>
                 </div>
               </div>
 
-              <h2 class="title is-4">Edit profile text</h2>
-              <p>
-                You can add images by dragging and dropping an image from your
-                file browser (max. 1MB per image).
-              </p>
-              <div class="mb-4">
-                <div class="editor box">
-                  <no-ssr>
+              <h2 class="title is-4">Profile text</h2>
+              <div class="box">
+                <no-ssr>
+                  <div class="editor__bar">
                     <editor-menu-bar
                       :editor="editor"
                       v-slot="{ commands, isActive }"
                     >
-                      <div class="is-flex-direction-row editor__bar">
+                      <div class="is-flex-direction-row">
                         <button
                           class="button"
                           :class="{ 'is-active': isActive.bold() }"
@@ -72,45 +71,72 @@
                         </button>
                         <button
                           class="button"
-                          type="button"
-                          :class="{
-                            'is-active': isActive.heading({ level: 1 })
-                          }"
-                          @click="commands.heading({ level: 1 })"
+                          :class="{ 'is-active': isActive.bold() }"
+                          @click="commands.italic"
                         >
-                          H1
+                          <i class="fas fa-italic"></i>
                         </button>
+
                         <button
                           class="button"
-                          type="button"
                           :class="{
                             'is-active': isActive.heading({ level: 2 })
                           }"
                           @click="commands.heading({ level: 2 })"
                         >
+                          H1
+                        </button>
+
+                        <button
+                          class="button"
+                          :class="{
+                            'is-active': isActive.heading({ level: 3 })
+                          }"
+                          @click="commands.heading({ level: 3 })"
+                        >
                           H2
+                        </button>
+
+                        <button
+                          class="button"
+                          :class="{
+                            'is-active': isActive.heading({ level: 4 })
+                          }"
+                          @click="commands.heading({ level: 4 })"
+                        >
+                          H3
                         </button>
                         <button
                           type="button"
                           class="button"
-                          :class="{ 'is-active': isActive.ordered_list() }"
-                          @click="commands.ordered_list"
+                          :class="{ 'is-active': isActive.bullet_list() }"
+                          @click="commands.bullet_list"
                         >
-                          <i class="fas fa-list-ol"></i>
+                          <i class="fas fa-list-ul"></i>
+                        </button>
+                        <button
+                          type="button"
+                          class="button"
+                          @click="openImageUploadModal(commands.image)"
+                        >
+                          <i class="fas fa-image"></i>
                         </button>
                       </div>
                     </editor-menu-bar>
-                    <div class="editor__body">
-                      <editor-content :editor="editor" />
-                    </div>
-                  </no-ssr>
-                </div>
+                  </div>
+                  <div class="editor__body content">
+                    <editor-content :editor="editor" />
+                  </div>
+                </no-ssr>
               </div>
 
-              <div class="mb-4">
-                <h2 class="title is-4 mt-4">Edit sector</h2>
-                <div class="select mb-5">
-                  <select v-model="selectedFwsmSector">
+              <h2 class="title is-4" id="sector-label">Sector</h2>
+              <div class="box">
+                <div class="select">
+                  <select v-model="subsectorId" aria-labelledby="sector-label">
+                    {{
+                      sectors
+                    }}
                     <option
                       v-for="fwsmSector in sectors"
                       :key="fwsmSector.subsectorId"
@@ -122,77 +148,77 @@
                 </div>
               </div>
 
-              <h2 class="title is-4">Edit address</h2>
-
-              <div class="columns">
-                <div class="column is-half">
-                  <div class="field">
-                    <label class="label" for="street">Address</label>
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="text"
-                        name="street"
-                        id="street"
-                        v-model="address"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="columns">
-                <div class="column is-half">
-                  <div class="field">
-                    <label class="label" for="postcode">Postcode</label>
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="text"
-                        id="postcode"
-                        name="postcode"
-                        v-model="postcode"
-                      />
+              <h2 class="title is-4">Address</h2>
+              <div class="box">
+                <div class="columns">
+                  <div class="column is-half">
+                    <div class="field">
+                      <label class="label" for="street">Address</label>
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          name="street"
+                          id="street"
+                          v-model="address"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="column is-half">
-                  <div class="field">
-                    <label class="label" for="city">City</label>
-                    <div class="control">
-                      <input
-                        class="input"
-                        id="city"
-                        type="text"
-                        v-model="city"
-                        name="city"
-                      />
+                <div class="columns">
+                  <div class="column is-half">
+                    <div class="field">
+                      <label class="label" for="postcode">Postcode</label>
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          id="postcode"
+                          name="postcode"
+                          v-model="postcode"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="column is-half">
+                    <div class="field">
+                      <label class="label" for="city">City</label>
+                      <div class="control">
+                        <input
+                          class="input"
+                          id="city"
+                          type="text"
+                          v-model="city"
+                          name="city"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="columns">
-                <div class="column is-half">
-                  <div class="field">
-                    <label class="label">Country</label>
-                    <div class="control">
-                      <div class="select is-fullwidth">
-                        <select v-model="country">
-                          <option
-                            v-for="country in countryList"
-                            :key="country.alpha_2_code"
-                            :value="country.alpha_2_code"
-                            >{{ country.en_short_name }}</option
-                          >
-                        </select>
+                <div class="columns">
+                  <div class="column is-half">
+                    <div class="field">
+                      <label class="label">Country</label>
+                      <div class="control">
+                        <div class="select is-fullwidth">
+                          <select v-model="country">
+                            <option
+                              v-for="country in countryList"
+                              :key="country.alpha_2_code"
+                              :value="country.alpha_2_code"
+                              >{{ country.en_short_name }}</option
+                            >
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
               <button type="submit" class="button is-primary is-medium">
                 Save changes
               </button>
@@ -235,49 +261,24 @@
 
 <script>
 import { countryList } from "kbrinl-open-data";
+import FWSMImageUploadModal from "~/components/FWSMImageUploadModal";
+import { mapGetters } from "vuex";
 import { Editor, EditorContent, EditorMenuBar } from "tiptap";
 import {
-  Blockquote,
-  CodeBlock,
-  HardBreak,
-  Heading,
-  OrderedList,
+  Bold,
+  Italic,
   BulletList,
   ListItem,
-  TodoItem,
-  TodoList,
-  Bold,
-  Code,
-  Italic,
-  Link,
-  Strike,
   Underline,
-  History
+  Image,
+  Heading
 } from "tiptap-extensions";
-import { mapGetters } from "vuex";
-import ImageDrop from "~/plugins/image";
 
 export default {
-  middleware: "auth",
   components: {
+    FWSMImageUploadModal,
     EditorContent,
     EditorMenuBar
-  },
-  data() {
-    return {
-      editor: this.$auth.user.text,
-      editorContent: "",
-      success: null,
-      error: null,
-      selectedFwsmSector: this.$auth.user.subsectorId || null,
-      address: this.$auth.user.address.address,
-      postcode: this.$auth.user.address.postcode,
-      city: this.$auth.user.address.city,
-      country: this.$auth.user.address.country,
-      profilePicture: this.$auth.user.profilePicture,
-      uploadedProfilePicture: null,
-      profilePictureName: "Upload a profile picture"
-    };
   },
   async asyncData(context) {
     const sectors = await context.$axios
@@ -288,28 +289,36 @@ export default {
       countryList
     };
   },
+
+  data() {
+    return {
+      error: null,
+      success: null,
+      editor: null,
+      text: this.$auth.user.text,
+      profilePicture: this.$auth.user.profilePicture,
+      profilePictureFileName: "Upload a profile picture",
+      uploadedProfilePicture: this.$auth.user.profilePicture || null,
+      subsectorId: this.$auth.user.subsectorId || null,
+      address: this.$auth.user.address.address,
+      postcode: this.$auth.user.address.postcode,
+      city: this.$auth.user.address.city,
+      country: this.$auth.user.address.country
+    };
+  },
   mounted() {
     this.editor = new Editor({
       extensions: [
-        new Blockquote(),
-        new HardBreak(),
-        new Heading({ levels: [1, 2, 3] }),
-        new BulletList(),
-        new OrderedList(),
-        new ListItem(),
-        new ImageDrop(null, null, this.upload),
-        new TodoItem(),
-        new TodoList(),
         new Bold(),
         new Italic(),
-        new Link(),
-        new Strike(),
-        new Underline(),
-        new History()
+        new Image(),
+        new BulletList(),
+        new ListItem(),
+        new Heading({ levels: [2, 3, 4] })
       ],
-      content: this.editor,
+      content: this.text,
       onUpdate: ({ getHTML }) => {
-        this.editorContent = getHTML();
+        this.text = getHTML();
       }
     });
   },
@@ -317,35 +326,29 @@ export default {
     this.editor.destroy();
   },
   methods: {
-    async upload(file) {
-      let formData = new FormData();
-      formData.append("image", file);
-      const headers = { "Content-Type": "multipart/form-data" };
-      const response = await this.$axios.$post(
-        "/api/organizations/image",
-        formData,
-        {
-          headers: {
-            Authorization: this.$auth.strategy.token.get()
-          }
-        }
-      );
-      return response.src;
+    openImageUploadModal(command) {
+      this.$refs.imageUploadModal.openModal(command);
     },
-    handleFileChange(e) {
+    handleProfilePictureChange(e) {
       this.uploadedProfilePicture = e.target.files[0];
-      this.profilePictureName = e.target.files[0].name;
+      this.profilePictureFileName = e.target.files[0].name;
     },
-    async makeChanges() {
-      if (!this.selectedFwsmSector) {
-        window.scrollTo(0, 0);
-        this.error = "You must choose a sector";
+    addCommand(data) {
+      if (data.command !== null) {
+        data.command(data.data);
+      }
+    },
+    async saveChanges() {
+      this.success = null;
+      this.error = null;
+      if (!this.subsectorId) {
+        this.showErrorMessage("You must select a sector");
         return;
       }
 
       const rawFormData = {
-        text: this.editorContent,
-        subsectorId: this.selectedFwsmSector,
+        text: this.text,
+        subsectorId: this.subsectorId,
         address: this.address,
         postcode: this.postcode,
         city: this.city,
@@ -354,39 +357,36 @@ export default {
       };
 
       const formData = new FormData();
-
       Object.keys(rawFormData).forEach(key =>
         formData.append(key, rawFormData[key])
       );
 
-      await this.$axios
-        .$post("/api/organizations/edit", formData, {
+      try {
+        await this.$axios.$post("/api/organizations/edit", formData, {
           headers: {
             Authorization: this.$auth.strategy.token.get()
           }
-        })
-        .then(res => {
-          window.scrollTo(0, 0);
-          this.success = true;
-          this.error = false;
-        })
-        .catch(err => {
-          this.error = err.response.data.error;
         });
+        this.showSuccessMessage(
+          "Your profile changes have been successfully saved."
+        );
+      } catch (e) {
+        console.log(e);
+        this.showErrorMessage("Something went wrong. Please try again.");
+      }
+    },
+    showErrorMessage(error) {
+      this.error = error;
+      window.scrollTo(0, 0);
+    },
+    showSuccessMessage(message) {
+      this.success = message;
+      window.scrollTo(0, 0);
     }
   },
+  middleware: "auth",
   computed: {
-    ...mapGetters(["isAuthenticated", "loggedInUser"]),
-    selectedSector: function() {
-      if (
-        this.$auth.user.subsectorId !== "" ||
-        this.$auth.user.subsectorId !== null
-      ) {
-        return this.sectors.find(
-          sector => sector.subsectorId === this.$auth.user.subsectorId
-        );
-      }
-    }
+    ...mapGetters(["loggedInUser"])
   }
 };
 </script>
